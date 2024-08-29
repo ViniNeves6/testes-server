@@ -2,6 +2,7 @@ import io
 import zipfile
 from bson import ObjectId
 from app.utils.data import userdata2frame, userdata_summary
+from app.utils.functions import format_ISO
 from flask import render_template, Blueprint, request, session, abort, send_file
 from flask import current_app as app
 
@@ -30,7 +31,7 @@ def index_post():
             app.db,
             collection_name,
             dataid,
-            ["eye", "mouse", "keyboard", "freeze", "click", "wheel", "move"],
+            ["eye", "keyboard", "freeze", "click", "wheel", "mousemove"],
         )
         voice_df = userdata2frame(app.db, collection_name, dataid, "voice")
         face_df = userdata2frame(app.db, collection_name, dataid, "face")
@@ -106,14 +107,15 @@ def index_get():
         documents = app.db[collection_name].find({}) 
 
         data, date_counts = userdata_summary(documents)
-
+        
         data = list(reversed(data))[:5]
-
-        print(data)
         
         # Separar as datas e suas contagens
         dates = list(date_counts.keys())
         values = list(date_counts.values())
+
+        #transformando para formato ISO
+        datesISO = format_ISO(dates)
 
         return render_template(
             "index.html",
@@ -121,7 +123,7 @@ def index_get():
             username=session["username"],
             title="Home",
             data=data,
-            dates=dates,
+            dates=datesISO,
             values=values,
         )
 

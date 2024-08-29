@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
       - "27017:27017"
-    mem_limit: 1024M
+    mem_limit: 512M
     cpus: 1.0
     restart: always
 
@@ -40,8 +40,8 @@ services:
       - mongo
     env_file:
       - .env
-    mem_limit: 2048M
-    cpus: 1.0
+    mem_limit: 3072M
+    cpus: 2.0
     restart: always
 
   nginx:

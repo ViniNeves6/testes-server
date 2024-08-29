@@ -75,9 +75,10 @@ def generate_trace_recording(df_trace):
     # Define ícones para cada tipo de interação (referência: https://plotly.com/python/marker-style/)
     type_icon = {
         "freeze": "hourglass",
-        "eye": "circle",
-        "click": "circle",
-        "move": "arrow",
+        "eye": "circle-open",
+        "click": "x",
+        "mousemove": "circle",
+        "wheel": "diamond-tall-dot",
         "keyboard": "hash",
     }
 
@@ -105,10 +106,10 @@ def gen_fullpage(width, height, frames):
     # Itera sobre cada site e suas respectivas imagens de captura de tela
     for site, image in frames.items():
         # Calcula a altura total necessária para a imagem composta
-        height = int(height + max(item["scroll"] for item in image.values()))
+        height_full = int(height + max(item["scroll"] for item in image.values()))
         
         # Cria uma nova imagem em branco com a largura especificada e a altura calculada
-        compose_im = Image.new("RGB", (width, height), "white")
+        compose_im = Image.new("RGB", (width, height_full), "white")
 
         # Itera sobre cada imagem e suas informações de posição de rolagem
         for image_name, item in image.items():

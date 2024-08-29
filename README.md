@@ -1,4 +1,4 @@
-![alt text](https://github.com/Colab-UNIRIO-UFPA/uxtracking.com/blob/main/UX-Tracking%20Banner.png)
+![alt text](https://github.com/Horusprg/uxtracking.com/blob/main/UX-Tracking%20Banner.png)
  # UX-Tracking: Web Server
 Repositório do servidor web do framework [UX-Tracking: User eXperience Tracking](https://uxtracking.andrepereira.eng.br/)
 

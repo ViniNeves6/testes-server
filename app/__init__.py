@@ -124,7 +124,3 @@ def create_app(enviroment='prod'):
     # autenticação google
     app.oauth = OAuth(app)
     return app
-
-if __name__ == "__main__":
-    app = create_app('dev')
-    app.run(debug=True)

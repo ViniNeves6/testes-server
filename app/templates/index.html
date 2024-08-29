@@ -416,7 +416,7 @@
                         // Dados de exemplo
                         const datas = JSON.parse('{{ dates | tojson | safe }}');
                         const valores = JSON.parse('{{ values | tojson | safe}}');
-                
+
                         // Crie um objeto similar a um DataFrame
                         const df = {
                             Data: datas,
@@ -447,9 +447,16 @@
                         });
                 
                         function atualizarGrafico(data_inicial, data_final) {
+
                             // Filtrar os dados com base no intervalo de datas selecionado
-                            const dadosFiltrados = df.Data.filter(function(data) {
+                            const dadosFiltradosISO = df.Data.filter(function(data) {
                                 return data >= data_inicial && data <= data_final;
+                            });
+  
+                            // Converte datas ISO 8601 para formato DD/MM/YYYY
+                            const dadosFiltrados = dadosFiltradosISO.map(date => {
+                                const [year, month, day] = date.split('-');
+                                return `${day}/${month}/${year}`;
                             });
                 
                             const valoresFiltrados = df.Valor.filter(function(data, index) {

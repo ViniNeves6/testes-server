@@ -12,18 +12,6 @@ RUN apt-get update && \
 
 # Copia o arquivo de requisitos para o diretório de trabalho
 COPY requirements.txt requirements.txt
-
-# Instale gdown e qualquer outra dependência necessária
-RUN pip install gdown
-
-# Defina as variáveis de ambiente
-ENV BERTIMBAU_PATH=app/bertimbau-finetuned
-ENV BERTIMBAU_URL=https://drive.google.com/drive/folders/1gE6JdtHgSw9GOqtS-u8xs0x9hjxZwwWA?usp=sharing
-
-# Execute o comando para verificar se a pasta existe e fazer o download se necessário
-RUN if [ ! -d "$BERTIMBAU_PATH" ]; then \
-    gdown --folder $BERTIMBAU_URL -O $BERTIMBAU_PATH; \
-    fi
     
 # Instala as dependências do Python
 RUN pip install --no-cache-dir -r requirements.txt

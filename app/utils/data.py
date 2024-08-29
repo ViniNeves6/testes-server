@@ -2,6 +2,7 @@ import pandas as pd
 from bson import ObjectId
 from datetime import datetime
 from collections import Counter
+from app.utils.functions import convert_utc_to_local
 
 
 def userdata2frame(mongo_db, collection_name, id, data_type):
@@ -166,8 +167,12 @@ def userdata_summary(documents):
 
             # Converter para data e hora
             date_obj = datetime.fromisoformat(date_str.rstrip("Z"))
-            date_part = date_obj.date().strftime("%d/%m/%Y")
-            time_part = date_obj.time()
+
+            #converte UTC para horário local
+            local_date_obj = convert_utc_to_local(date_obj)
+
+            date_part = local_date_obj.date().strftime("%d/%m/%Y")
+            time_part = local_date_obj.time().strftime("%H:%M:%S")
 
             date_arr.append(date_part)
             # Criando o objeto data com todas as informações da coleta
@@ -180,8 +185,8 @@ def userdata_summary(documents):
                 }
             )
 
-        except:
-            None
+        except Exception as e:
+            print(f"Error processing document {doc['_id']}: {e}")
 
     # Contar as ocorrências de cada data
     date_counts = Counter(date_arr)

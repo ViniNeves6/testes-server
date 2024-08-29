@@ -1,6 +1,7 @@
 import string
 import random
 import pandas as pd
+import pytz
 import os
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
@@ -10,11 +11,11 @@ import cv2 as cv
 import numpy as np
 from datetime import datetime
 
-
-folderBert = "app/bertimbau-finetuned"
-
-tokenizer = AutoTokenizer.from_pretrained(folderBert)
-modelBert = AutoModelForSequenceClassification.from_pretrained(folderBert)
+# Load model directly from HuggingFace
+tokenizer = AutoTokenizer.from_pretrained("Horusprg/bertimbau-finetuned")
+modelBert = AutoModelForSequenceClassification.from_pretrained(
+    "Horusprg/bertimbau-finetuned"
+)
 
 id2label = {
     0: "RAIVA",
@@ -35,6 +36,22 @@ def format_ISO(dates):
         iso_format_dates.append(iso_date)
 
     return iso_format_dates
+
+
+def convert_utc_to_local(utc_dt):
+    # Definir o fuso horário UTC
+    utc = pytz.utc
+
+    # Converter a data e hora UTC para um objeto datetime com fuso horário
+    utc_dt = utc.localize(utc_dt)
+
+    # Fuso horário local (exemplo: America/Sao_Paulo para Brasília)
+    local_tz = pytz.timezone("America/Sao_Paulo")
+
+    # Converter para o fuso horário local
+    local_dt = utc_dt.astimezone(local_tz)
+
+    return local_dt
 
 
 def nlpBertimbau(df):
@@ -181,6 +198,7 @@ def dirs2data(userfound, datadir):
 def id_generator():
     chars = string.ascii_uppercase + string.digits
     return "".join(random.choice(chars) for _ in range(8))
+
 
 def plot_image(img, figsize_in_inches=(5, 5)):
     fig, ax = plt.subplots(figsize=figsize_in_inches)

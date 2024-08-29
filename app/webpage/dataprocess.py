@@ -127,12 +127,11 @@ def datafilter_post(username, metadata):
                         date,
                         [
                             "eye",
-                            "mouse",
                             "keyboard",
                             "freeze",
                             "click",
                             "wheel",
-                            "move",
+                            "mousemove",
                         ],
                     )
 
@@ -404,19 +403,18 @@ def downloadAudio():
 
 
 @data_bp.post("/dataview/<username>/<plot>")
-def dataview_post(username, plot):
+async def dataview_post(username, plot):
     if "username" in session:
         # faz a leitura da base de dados de coletas do usuário
         userfound = app.db.users.find_one({"username": session["username"]})
         collection_name = f"data_{userfound['_id']}"
-
         dir = request.form["dir"]
 
         df_trace = userdata2frame(
             app.db,
             collection_name,
             dir,
-            ["eye", "mouse", "keyboard", "freeze", "click", "wheel", "move"],
+            ["eye", "keyboard", "freeze", "click", "wheel", "mousemove"],
         )
         df_audio = userdata2frame(app.db, collection_name, dir, "voice")
 
@@ -424,27 +422,28 @@ def dataview_post(username, plot):
             results = {}
             full_base64 = {}
 
-            async def process_image(im_id):
+            def process_image(im_id):
                 try:
                     file_data = app.fs.get(im_id).read()
                     img = Image.open(io.BytesIO(file_data))
                     buffered = io.BytesIO()
-                    img.save(buffered, format="PNG")
+                    img.save(buffered, format="PNG", optimize=True)
                     img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
                     return str(im_id), "data:image/png;base64," + img_base64
                 except Exception as e:
                     print(f"Erro ao processar a imagem {im_id}: {e}")
                     return str(im_id), create_blank_image_base64()
 
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            tasks = [process_image(im_id) for im_id in df_trace["image"]]
-            results_img = loop.run_until_complete(asyncio.gather(*tasks))
+            async def async_process_image(im_id):
+                return await asyncio.to_thread(process_image, im_id)
+
+            tasks = [async_process_image(im_id) for im_id in df_trace["image"]]
+            results_img = await asyncio.gather(*tasks)
 
             for im_id, img_base64 in results_img:
                 full_base64[im_id] = img_base64
 
-            # filtra os dfs para diminuir o tamanho do json enviado
+            # Filtra os DataFrames para diminuir o tamanho do JSON enviado
             filtered_df_trace = df_trace[["time", "x", "y", "image", "scroll"]].copy()
             filtered_df_voice = df_audio[["text", "time", "image"]].copy()
 
@@ -457,7 +456,6 @@ def dataview_post(username, plot):
             results["trace"] = filtered_df_trace.to_json(orient="records")
             results["voice"] = filtered_df_voice.to_json(orient="records")
 
-            print("osasdncs");
             return results
 
         elif plot == "recording":
@@ -469,17 +467,15 @@ def dataview_post(username, plot):
             async def transform_b64(key, img):
                 try:
                     buffered = io.BytesIO()
-                    img.save(buffered, format="PNG")
+                    img.save(buffered, format="PNG", optimize=True)
                     img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
                     return str(key), "data:image/png;base64," + img_base64
                 except Exception as e:
-                    print(f"Erro ao processar a imagem {im_id}: {e}")
+                    print(f"Erro ao processar a imagem {key}: {e}")
                     return str(key), create_blank_image_base64()
 
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
             tasks = [transform_b64(key, img) for key, img in full_ims.items()]
-            transform_img = loop.run_until_complete(asyncio.gather(*tasks))
+            transform_img = await asyncio.gather(*tasks)
 
             for key, img in transform_img:
                 full_base64[key] = img
@@ -495,8 +491,10 @@ def dataview_post(username, plot):
             results["trace"] = df_trace_site.to_json(orient="records")
 
             return results
+
         elif plot == "nlp":
             return
+
         else:
             flash("404\nPage not found!")
             return render_template(

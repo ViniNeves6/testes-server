@@ -18,13 +18,13 @@
   {% endif %}
   {% endwith %}
 
-  <form method="POST">
+  <form id="dataForm" method="POST">
     <div class="d-flex flex-column py-0 list-group">
       {% for data in items%}
       <label
         class="d-flex gap-2 w-100 py-0 rounded-0 border-bottom justify-content-between align-items-center"> <!-- border-secondary-subtle -->
 
-        <input class="btn-check" type="checkbox" name="dates[]" value="{{ data['id'] }}" autocomplete="off">
+        <input class="btn-check" type="checkbox" name="dates[]" value="{{ data['id'] }}" autocomplete="off" onchange="updateLocalStorage(this)">
 
         {% if loop.first %}
         <div class="d-flex btn list-group-item w-100 p-2 rounded-0 justify-content-between border-0 cor-preto1" for="btn-check">
@@ -101,7 +101,7 @@
           </div>
         </div>
         <div class="col-md-4 offset-md-4" style="text-align: end;">
-          <button class="btn btn-secondary w-50 my-4 mx-5 text-white" type="submit" value="Enviar">Próximo</button>
+          <button id="btnProximo" class="btn btn-secondary w-50 my-4 mx-5 text-white" type="submit" value="Enviar">Próximo</button>
         </div>
       </div>
     </div>
@@ -134,4 +134,7 @@
   </form>
   {% endif %}
 </div>
+
+<script src="{{ url_for('static', filename='js/data_filter.js') }}"></script>
+
 {% endblock %}

@@ -85,7 +85,7 @@ def userRecover():
 
     return jsonify(response)
 
-@external_auth_bp.get('/userLogout')
+@external_auth_bp.post('/userLogout')
 def userLogout():
     session.clear()
     response = {"status": 200}

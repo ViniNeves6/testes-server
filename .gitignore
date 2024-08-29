@@ -4,3 +4,4 @@
 /*/*/__pycache__
 /.vscode
 /app/bertimbau-finetuned
+__pycache__/run.cpython-311.pyc
