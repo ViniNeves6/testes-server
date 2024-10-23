@@ -1,0 +1,74 @@
+img {
+    width: 13%;
+    margin: auto;
+    padding: 3em;
+}
+
+.block {
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    background: white;
+    padding: 2em;
+    border-radius: 1.5em;
+}
+
+label{
+    cursor: pointer;
+    margin: auto;
+    display: block;
+    font-family:sans-serif;
+    color: white;
+    font-size: 1.5em;
+    background: rgb(47, 113, 212);
+    padding: 0.5em 1em;
+    width: fit-content;
+    border-radius: 1em;
+}
+label:hover{
+    background: rgb(28, 70, 133);
+    transition: 600ms;
+}
+
+button{
+    cursor: pointer;
+    margin: auto;
+    display: block;
+    font-family:sans-serif;
+    color: white;
+    font-size: 1.3em;
+    background: rgb(47, 113, 212);
+    padding: 0.5em 1em;
+    width: fit-content;
+    border-radius: 1em;
+    border: 0cm;
+}
+button:hover{
+    background: rgb(28, 70, 133);
+    transition: 600ms;
+}
+p {
+    color: red;
+    font-family: courier;
+    font-size: 160%;
+}
+
+input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+span{
+    color: rgb(47, 113, 212);
+    font-family: verdana;
+    font-size: 1em;
+    display: block;
+    height: 4em;
+}
+* {
+    margin: 0;
+    padding: 0;
+}

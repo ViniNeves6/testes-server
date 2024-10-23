@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/publicacoes.css') }}">
+
+{% endblock %}
+
+{% block content %}
+    {% if not session %}
+    <div class="minha-div mt-5">
+        <h2 class="text-white">Histórico de Publicações</h2>
+        <h6 class="meu-paragrafo"></h6>
+        <hr>
+
+        <div class="timeline">
+            <ul>
+              <li>
+                <div class="content" onclick="window.location='https://www.even3.com.br/anais/edurede2022/562058-ux-tracking--uma-ferramenta-para-avaliacao-de-experiencia-dos-alunos-no-contexto-das-aulas-ead';">
+                  <h5 class="text-white">UX-Tracking: uma ferramenta para avaliação de experiência dos alunos no contexto das aulas EaD </h5>
+                  <p class="text-white">Em <strong>2023</strong>, realizou-se um <strong>estudo de caso para avaliação UX em cenário educacionais com a UX-Tracking</strong>. Essa pesquisa utiliza das técnicas de rastreamento que a ferramenta disponibiliza para permitir a <strong>avaliação de experiência dos alunos em aulas EaD</strong></p>
+                </div>
+                
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://www.atenaeditora.com.br/catalogo/ebook/collection-applied-computer-engineering-2';">
+                  <h5 class="text-white">Rastreamento de mouse para avaliação de experiência do usuário em portais de notícias: Um estudo de caso</h5>
+                  <p class="text-white">Outra pesquisa com o <strong>UX-Tracking</strong>, publicada em capítulo de livro, realizou um estudo de caso com a ferramenta para avaliação de UX em sites de notícias, como o portal do <strong>O liberal</strong> e <strong>DOL</strong></p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.5753/waihcws.2022.226364';">
+                  <h5 class="text-white">Perspectivas do monitoramento de Experiência de Usuário em diferentes domínios com ferramenta de captura multimodal </h5>
+                  <p class="text-white">Com o desenvolvimento do <strong>UX-Tracking</strong>, ainda em <strong>2022</strong>, foram realizadas diversos estudos com a ferramenta, um deles propôs um estudo exploratório para <strong>identificar e analisar as perspectivas de UX em diferentes domínios</strong> monitorados com o UX-Tracking.</p>
+                </div>
+              </li>
+              <li>
+                <div class="content " onclick="window.location='https://doi.org/10.5753/webmedia_estendido.2022.226527';">
+                  <h5 class="text-white">UX-Tracking: Web and Multimodal Tool for User Experience Evaluation</h5>
+                  <p class="text-white">Ainda em <strong>2022</strong>, a ferramenta <strong>T2-UXT</strong> evoluiu para o atual framework, denominado <strong>User Experience Tracking (UX-Tracking)</strong>, uma ferramenta Web de captura multimodal que realiza o rastreio de mouse, olhar, teclado e voz para melhoria de UX em cenários web diversificados.</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.5753/ihc_estendido.2022.224631';">
+                  <h5 class="text-white">Avaliação de Experiência do Usuário de diferentes regiões do Brasil em sites de notícias: um estudo de caso Norte e Sul </h5>
+                  <p class="text-white">Em <strong>2022</strong>, é realizada uma avaliação suportada pelo <strong>T2-UXT</strong>, comparando os dados obtidos por esta ferramenta com a opinião dos participantes desta pesquisa, através do Quis Teste (adaptado da heurística UX)</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.1080/10447318.2021.1960092';">
+                  <h5 class="text-white">An Evaluation Framework for User Experience Using Eye Tracking, Mouse Tracking, Keyboard Input, and Artificial Intelligence: A Case Study</h5>
+                  <p class="text-white">Também em <strong>2021</strong>, propõe-se um estudo de caso em sites com <strong>T2-UXT</strong> que emprega métodos de rastreamento, questionário de autoavaliação e algoritmos de <strong>IA</strong> para <strong>Avaliação de UX</strong> e categorizar usuários em termos de perfis de desempenho.</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.1145/3472301.3484357';">
+                  <h5 class="text-white">Analytical Model for Classifying Areas of Interest in Interactive Systems</h5>
+                  <p class="text-white">Ainda em <strong>2021</strong>, propõe um estudo com <strong>T2-UXT</strong> em conjunto com um modelo analítico que define Áreas de Interesse do Usuário com base em objetos <strong>HyperText Markup Language (HTML)</strong> da interface e os classifica com base em um algoritmo T2-UXT para avaliação UX</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.13037/ci.vol22n50.7893';">
+                  <h5 class="text-white">Análise da Experiência do Usuário (UX) de Narrativa Transmídia através de Mouse-Tracking</h5>
+                  <p class="text-white">Em <strong>2021</strong>, realizou-se a pesquisa utilizou a antecessora <strong>AIMT-UXT</strong> como método de avaliação da experiência do usuário a partir de métricas de rastreamento de mouse.</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://sol.sbc.org.br/index.php/sbes/article/view/17036';">
+                  <h5 class="text-white">T2-UXT: A Tool to Support Transparency Evaluation in Software Ecosystems Portals </h5>
+                  <p class="text-white">Em <strong>2020</strong>, a ferramenta evoluiu para o <strong>Tracking Techniques Based User Experience Evaluation Tool (T2-UXT)</strong>, que realiza o Rastreio de mouse, olhar e teclado para melhoria de UX em diversos cenários de ecossistema de Softwares</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.1109/ACCESS.2019.2927860';">
+                  <h5 class="text-white">User Experience Evaluation Using Mouse Tracking and Artificial Intelligence</h5>
+                  <p class="text-white">Ainda em <strong>2019</strong>, com a ferramenta <strong>AIMT-UXT</strong>, foi realizado um outro trabalho de Rastreio de Mouse e Olhar voltado melhoria de UX, usando lógica Fuzzy em um estudo de caso</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.21528/CBIC2019-92';">
+                  <h5 class="text-white">Metodologia Baseada em Agrupamento de Rastreamento de Mouse e Olhar para Melhoria da Experiência do Usuário </h5>
+                  <p class="text-white">Também em <strong>2019</strong>, foi produzido mais trabalhos com o <strong>AIMT-UXT</strong>, ferramenta antecessora ao UX-Tracking, agora com Rastreio de Mouse e Olhar voltados para melhoria nas avaliações UX, usando os métodos k-means</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.1145/3323503.3360623';">
+                  <h5 class="text-white">Comparative Study of User Experience Evaluation Techniques Based on Mouse and Gaze Tracking</h5>
+                  <p class="text-white">Em <strong>2019</strong>, foi introduzido uma ferramenta com o <strong>Artificial Intelligence and Mouse Tracking-based User eXperience Tool (AIMT-UXT)</strong>, para coletar os dados de mouse-tracking, e <strong>SearchGaze.js</strong>, para a coleta de dados de rastreamento ocular e pontos fixos do olhar</p>
+                </div>
+              </li>
+              <li>
+                <div class="content" onclick="window.location='https://doi.org/10.5753/ihc.2018.4200';">
+                  <h5 class="text-white">Web Tracer: Aplicativo para monitoramento de rastreio do Mouse </h5>
+                  <p class="text-white text-justify">Em <strong>2018</strong>, foi desenvolvido o <strong>Web Trace</strong>r, uma ferramenta de monitoramento e avaliação UX a partir das trajetórias e cliques do mouse, a qual, posteriormente, foi encapsulada no framework UX-Tracking </p>
+              </li>
+            </ul>
+          </div>
+          
+        
+        
+        
+    </div>
+    {% else %}
+        
+    {% endif %}
+
+{% endblock %}

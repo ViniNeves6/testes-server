@@ -1,0 +1,20 @@
+input[type="checkbox"]:checked + .btn {
+    color: #ffffff;
+    background: #676767!important;
+}
+
+input[type="checkbox"]:hover + .btn {
+    color: #ffffff;
+    background: #676767!important;
+}
+#plotDiv {
+    text-align: center;
+    width: 100%!important;
+    position: relative;
+}
+.adjust-side-menu {
+    margin-left: 30vh;
+}
+.text-with-shadow {
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.9);  /* Sombra horizontal, vertical, blur, cor */
+}

@@ -1,0 +1,142 @@
+body {
+    padding-top: 80px; /* Ajuste conforme a altura real da sua navbar */
+}
+
+#h-divider {
+    width: 100%;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .35);
+}
+
+.list-group {
+    width: 100%;
+    margin-inline: 0rem;
+}
+
+.adjust-side-menu {
+    margin-left: 30vh;
+}
+
+.text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.w-custom {
+    width: 60%; /* Ou qualquer valor específico que desejar */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(100%);
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translatey(0)
+    }
+    50%{
+        transform:translatey(-5px)
+    }
+}
+
+.efeito-flutuante-infinito {
+    animation: float 2s ease-in-out infinite;
+}
+
+.carousel-item {
+    transition-duration: 3s; /* Ajuste para a duração desejada */
+}
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+        position: absolute;
+        margin: 0;
+        width: 1rem; /* ou o tamanho que desejar */
+}
+
+.btn-outline-custom {
+    color: #ffa500; /* Esta é a cor laranja */
+    border-color: #ffa500; /* Cor da borda laranja */
+}
+
+.btn-outline-custom:hover {
+    color: #fff; /* Cor do texto quando o mouse está em cima */
+    background-color: #ffa500; /* Cor de fundo quando o mouse está em cima */
+    border-color: #ffa500; /* Cor da borda quando o mouse está em cima */
+}
+
+@keyframes square-in-bottom-right {
+    from {
+        clip-path: inset(0 100% 100% 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+[transition-style="in:square:bottom-right"] {
+    animation: 2.5s cubic-bezier(.25, 1, .30, 1) square-in-bottom-right both;
+}
+
+.btn-outline-secondary{
+    border-color: #fff;
+}
+
+.btn-outline-secondary:hover{
+    color: #fff;
+    border-color: #fd7e14;
+}
+
+.btn-outline-info{
+    background: #fd7e14;
+    border-color: #fd7e14;
+}
+.btn-outline-info:hover{
+    background: #FF4E00;
+    border-color: #FF4E00;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5); /* Sombra inicial */
+}
+
+.minha-div {
+    position: relative;
+    width: 80%;        /* Define a largura para 80% da largura da tela */
+    margin: 0 auto;    /* Margem automática para centralizar */
+    padding-top:65px;
+}
+
+.img-up {
+    margin-top: -30px;  /* Ajuste este valor conforme necessário */
+    margin-bottom: -50px;
+}
+
+#ux-image {
+    margin-left: 10%; /* Espaçamento padrão para telas grandes */
+}
+
+@media (max-width: 768px) {
+    #ux-image {
+      margin-left: -10px; /* Remove o espaçamento extra em telas pequenas */
+    }
+}
+
+.cor-preto1 {
+    background-color: #0D0D0D !important; /* Fundo */
+}
+.cor-preto2 {
+    background-color: #121212 !important; /* Barra lateral */
+}
+.cor-laranja {
+    background-color: #fd7e14 !important;
+}
+
+.custom-style { /* pilulas sites */
+    border: 1px solid #fd7e14 !important;
+    color: #fd7e14 !important;
+    background-color: transparent !important;
+    opacity: 0.8 !important;
+}

@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background-color: #19181E;
+    box-sizing: border-box;
+}
+
+.apresentacao__conteudo__titulo{
+    color: #C23131;
+    font-size: 40px;
+}
+
+.apresentacao__conteudo__texto {
+    color: white;
+    font-size: 18px;
+}
+
+.apresentacao{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10% 15%;
+}
+
+.apresentacao__conteudo{
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+}
+
+.apresentacao__conteudo__link{
+    color: #DAA55F;
+}
+
+.apresentacao__conteudo__link:hover{
+    color: #EB7326
+}

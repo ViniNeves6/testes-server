@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block head %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+{% endblock %}
+
+
+{% block content %} 
+<div class="mt-5">
+  <div class="container mt-5" style="width: 79%; min-height:77vh">
+    <div class="row mt-5 gx-5">
+      <div class="col-sm-7 mt-5">
+        <h1 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">Acesse uma variedade de funcionalides para avaliação de UX</h1>
+        <p class="lead" style="text-align: justify;">Entre na sua conta para acessar seus dados coletados com a extensão UX-Tracking, realizar o
+          processamento dos traços coletados e avaliações visuais das interações dos usuários. E se ainda tiver dúvidas,
+          basta acessar nossa documentação disponível na nossa plataforma.</p>
+      </div>
+      <div class="col-sm-5 ms-auto custom-col-center">
+        <div class="form-signin justify-content-end w-100 ">
+          <form method="POST">
+            
+            <h1 class="h2 my-4 fw-normal" style="text-align: center;">Faça o login</h1>
+            
+            <div class="form-floating">
+              <input type="text" name="username" class="form-control" id="floatingInput" placeholder="User123Example">
+              <label for="floatingInput">Nome de usuário</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Senha</label>
+            </div>
+            
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+            <style>
+              .form-control {
+                border-color: red;
+              }
+              .form-control:focus {
+                border-color: red;
+                box-shadow: 0 0 0 0.3rem rgba(255, 0, 0, 0.25);
+              }
+            </style>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            
+            <button class="btn btn-primary w-100 py-2 my-3 text-white" type="submit">Login</button>
+            <!-- desativado
+            <h1 class="h5 mb-3 fw-normal" style="text-align: center;">ou</h1>
+
+            
+            <div style="text-align:center">
+              <a href="{{ url_for('auth_bp.google') }}">
+                <button type="button" class="login-with-google-btn">
+                  Faça login com o Google
+                </button>
+              </a>
+            </div> -->
+
+            <p style="text-align: center;"><br>
+              <a href="{{ url_for('pass_bp.forgot_pass_get') }}">Esqueceu a senha?</a><br>
+              <a href="{{ url_for('auth_bp.register_get') }}">Não tem uma conta?</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

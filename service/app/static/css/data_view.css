@@ -1,0 +1,62 @@
+input[type="checkbox"]:checked+.btn {
+    color: #ffffff;
+    background: #676767 !important;
+}
+
+input[type="checkbox"]:hover+.btn {
+    color: #ffffff;
+    background: #676767 !important;
+}
+
+#plotDiv {
+    text-align: center;
+    width: 100% !important;
+    position: relative;
+}
+
+.clicked {
+    background-color: #343A40;
+    /* Cor de fundo quando o botão é clicado */
+    color: white;
+}
+
+.scrollbar{
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.scrollbar::-webkit-scrollbar{
+    width: 10px;
+    background-color:#6f6f6f;
+    border-radius: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb{
+    background-color: #414040;
+    border-radius: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover{
+    background: #353535;
+}
+
+
+.botoes-site:hover{
+    background: #343A40;
+}
+
+.adjust-side-menu {
+    margin-left: 30vh;
+}
+
+.text-with-shadow {
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.9);  /* Sombra horizontal, vertical, blur, cor */
+}
+
+
+.custom-style { /* pilulas sites */
+    border: 1px solid #fd7e14 !important;
+    color: #fd7e14 !important;
+    background-color: transparent !important;
+    opacity: 0.8 !important;
+}
