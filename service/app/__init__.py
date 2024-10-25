@@ -23,7 +23,7 @@ from app.utils.models import load_fer, load_bert
 from config import configure_app
 
 from service.app.api_routes.namespaces import api_namespaces
-
+from service.app.webpage_routes.blueprints import webpage_bps
 
 def send_email(app, subject, body):
     # Configurar as informações de email
@@ -81,8 +81,8 @@ def create_app(environment="production"):
     # verifica se não há nenhum usuário no banco, então cria um usuário exemplo
     gen_example(app.config.get("MONGO_DB"), app.config.get("MONGO_FS"))
 
-    """for bp in webpage_bps:
-        app.register_blueprint(bp, url_prefix="/")"""
+    for bp in webpage_bps:
+        app.register_blueprint(bp, url_prefix="/")
 
     # Inicializar flask_restx Api e adicionar namespaces
     api = Api(

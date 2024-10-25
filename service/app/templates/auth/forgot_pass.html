@@ -1,0 +1,52 @@
+{% extends "base_not_authenticated.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forgot_pass.css') }}">
+
+{% endblock %}
+
+{% block content %}
+<div class="container col-xxl-8 px-5 py-5" style="min-height: 80vh;">
+  <div class="row flex-lg-row align-items-center g-5 py-4">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <h1 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">Esqueceu sua senha? Não tem problema</h1>
+      <p class="lead">Preencha suas informações para receber um email com sua nova senha de acesso à nossa plataforma,
+        recomendamos fazer a alteração da nova senha assim que possível.</p>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-signin justify-content-center w-100 m-auto">
+        <form method="POST">
+
+          <h1 class="h2 mb-4 mt-5 fw-normal" style="text-align: center;">Recuperar a senha</h1>
+
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          {% for message in messages %}
+          <p>{{ message }}</p>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+
+          <div class="form-floating">
+            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="User123Example">
+            <label for="floatingInput">Nome de usuário</label>
+          </div>
+          <div class="form-floating">
+            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="example@email.com">
+            <label for="floatingInput">Email</label>
+          </div>
+
+          <button class="btn btn-primary w-100 py-2" type="submit" style="color: white;">Receber minha senha por
+            email</button>
+
+          <p style="text-align: center;"><br>
+            <a href="{{ url_for('auth_bp.login_get') }}">Tem uma conta?</a><br>
+            <a href="{{ url_for('auth_bp.register_get') }}">Não tem uma conta?</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

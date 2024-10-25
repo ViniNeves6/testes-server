@@ -24,8 +24,9 @@
 }
 
 .member-img {
-    width: 120px; /* Ajuste conforme necessário */
+    width: 160px; /* Ajuste conforme necessário */
     height: 160px; /* Ajuste conforme necessário */
+    object-fit: cover !important;
     background-color: #f8f9fa;
     border-radius: 50%;
     margin-bottom: 15px;

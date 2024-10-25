@@ -9,6 +9,7 @@ from flask_mail import Message
 from flask_restx import Namespace, Resource, fields
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.utils.functions import id_generator
+from app.api_routes import login_required
 
 auth_ns = Namespace("auth", description="Operações de autenticação", path="/api/auth")
 
@@ -60,7 +61,23 @@ change_pass_model = auth_ns.model(
 class Register(Resource):
     @auth_ns.expect(register_model)
     def post(self):
-        """Registra um novo usuário"""
+        """
+        Registra um novo usuário.
+
+        **Entrada JSON**:
+          - `username`: Nome de usuário (obrigatório).
+          - `password`: Senha do usuário (obrigatório).
+          - `email`: Endereço de email do usuário (obrigatório).
+
+        **Retorno**:
+          - `data`: ID do usuário cadastrado (string).
+          - `message`: Mensagem de confirmação do registro.
+          - `status`: Código de status HTTP.
+
+        **Códigos de Resposta**:
+          - 200: Registro bem-sucedido.
+          - 401: Email ou nome de usuário já em uso.
+        """
         data = request.get_json()
         username = data.get("username")
         password = data.get("password")
@@ -117,7 +134,23 @@ class Register(Resource):
 class Login(Resource):
     @auth_ns.expect(login_model)
     def post(self):
-        """Faz login de um usuário"""
+        """
+        Realiza o login do usuário.
+
+        **Entrada JSON**:
+          - `username`: Nome de usuário (obrigatório).
+          - `password`: Senha do usuário (obrigatório).
+
+        **Retorno**:
+          - `data`: ID do usuário logado (string).
+          - `message`: Mensagem de confirmação do login.
+          - `status`: Código de status HTTP.
+
+        **Códigos de Resposta**:
+          - 200: Login bem-sucedido.
+          - 401: Senha incorreta.
+          - 404: Usuário não encontrado.
+        """
         data = request.get_json()
         username = data.get("username")
         password = data.get("password")
@@ -153,7 +186,21 @@ class Login(Resource):
 class RecoverPassword(Resource):
     @auth_ns.expect(recover_pass_model)
     def post(self):
-        """Recuperar a senha do usuário"""
+        """
+        Recupera a senha do usuário.
+
+        **Entrada JSON**:
+          - `username`: Nome de usuário (obrigatório).
+          - `email`: Email cadastrado do usuário (obrigatório).
+
+        **Retorno**:
+          - `status`: Código de status HTTP.
+          - `message`: Mensagem informando o status da recuperação de senha.
+
+        **Códigos de Resposta**:
+          - 200: Senha recuperada e enviada ao email.
+          - 404: Usuário não encontrado.
+        """
         data = request.get_json()
         username = data.get("username")
         email = data.get("email")
@@ -201,7 +248,25 @@ class RecoverPassword(Resource):
 class ChangePassword(Resource):
     @auth_ns.expect(change_pass_model)
     def put(self):
-        """Altera a senha do usuário"""
+        """
+        Altera a senha do usuário.
+
+        **Entrada JSON**:
+          - `username`: Nome de usuário (obrigatório).
+          - `password`: Senha atual do usuário (obrigatório).
+          - `newpassword`: Nova senha (obrigatório).
+          - `confirm_newpassword`: Confirmação da nova senha (obrigatório).
+
+        **Retorno**:
+          - `status`: Código de status HTTP.
+          - `message`: Mensagem de confirmação da alteração de senha.
+
+        **Códigos de Resposta**:
+          - 200: Senha alterada com sucesso.
+          - 400: Confirmação de nova senha não corresponde.
+          - 401: Senha atual incorreta.
+          - 404: Usuário não encontrado.
+        """
         data = request.get_json()
         username = data.get("username")
         password = data.get("password")
@@ -243,8 +308,20 @@ class ChangePassword(Resource):
 # Rota de logout
 @auth_ns.route("/logout")
 class Logout(Resource):
+    @login_required
     def delete(self):
-        """Faz logout do usuário atual"""
+        """
+        Realiza o logout do usuário atual.
+
+        **Requer autenticação**
+
+        **Retorno**:
+          - `status`: Código de status HTTP.
+          - `message`: Mensagem de confirmação de logout.
+
+        **Códigos de Resposta**:
+          - 200: Logout realizado com sucesso.
+        """
         session.clear()
         message = "Logout realizado com sucesso!"
         status = 200

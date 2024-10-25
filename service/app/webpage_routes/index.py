@@ -6,6 +6,8 @@ from app.utils.functions import format_ISO
 from flask import render_template, Blueprint, request, session, abort, send_file
 from flask import current_app as app
 
+from app.webpage_routes import login_required
+
 index_bp = Blueprint(
     "index_bp", "__name__", template_folder="templates", static_folder="static"
 )
@@ -95,37 +97,37 @@ def index_post():
         return response
 
     else:
-        return render_template("index.html", session=False, title="Home")
+        return render_template("index.html", title="Home")
 
 
 @index_bp.get("/")
-def index_get():
-    if "username" in session:
-        # faz a leitura da base de dados de coletas do usuário
-        userfound = app.db.users.find_one({"username": session["username"]})
-        collection_name = f"data_{userfound['_id']}"
-        documents = app.db[collection_name].find({}) 
+def main_get():
+    return render_template("index/main.html", title="Home")
 
-        data, date_counts = userdata_summary(documents)
-        
-        data = list(reversed(data))[:5]
-        
-        # Separar as datas e suas contagens
-        dates = list(date_counts.keys())
-        values = list(date_counts.values())
+@index_bp.get("/home")
+@login_required
+def home_get():
+    # faz a leitura da base de dados de coletas do usuário
+    userfound = app.db.users.find_one({"username": session["username"]})
+    collection_name = f"data_{userfound['_id']}"
+    documents = app.db[collection_name].find({}) 
 
-        #transformando para formato ISO
-        datesISO = format_ISO(dates)
+    data, date_counts = userdata_summary(documents)
+    
+    data = list(reversed(data))[:5]
+    
+    # Separar as datas e suas contagens
+    dates = list(date_counts.keys())
+    values = list(date_counts.values())
 
-        return render_template(
-            "index.html",
-            session=True,
-            username=session["username"],
-            title="Home",
-            data=data,
-            dates=datesISO,
-            values=values,
-        )
+    #transformando para formato ISO
+    datesISO = format_ISO(dates)
 
-    else:
-        return render_template("index.html", session=False, title="Home")
+    return render_template(
+        "index/home.html",
+        username=session["username"],
+        title="Home",
+        data=data,
+        dates=datesISO,
+        values=values,
+    )

@@ -1,0 +1,383 @@
+{% extends "base_not_authenticated.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/guia.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="botao-lateral" id="botaolateral">></div>
+
+<div class="minha-div mt-5">
+
+  <div class="row">
+    <div class="col-4 guia-lateral" id="guialateral">
+      <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
+        <nav class="nav nav-pills flex-column">
+
+          <a class="nav-link" href="#item-1">1. Introdução</a>
+          <a class="nav-link" href="#item-2">2. Instalação</a>
+          <nav class="nav nav-pills flex-column">
+            <a class="nav-link ms-3 my-1" href="#item-2-1">2.1 Versão Web</a>
+            <a class="nav-link ms-3 my-1" href="#item-2-2">2.2 Versão Mobile</a>
+          </nav>
+          <a class="nav-link" href="#item-3">3. Como usar</a>
+          <nav class="nav nav-pills flex-column">
+            <a class="nav-link ms-3 my-1" href="#item-3-1">3.1 Versão Web</a>
+            <a class="nav-link ms-3 my-1" href="#item-3-2">3.2 Versão Mobile</a>
+          </nav>
+          <a class="nav-link" href="#item-4">4. Métodos de Análise dos Resultados</a>
+          <nav class="nav nav-pills flex-column">
+            <a class="nav-link ms-3 my-1" href="#item-4-1">4.1 BERTimbal</a>
+            <a class="nav-link ms-3 my-1" href="#item-4-2">4.2 Mapa de Calor</a>
+            <a class="nav-link ms-3 my-1" href="#item-4-3">4.2 Análise de Expressões Faciais (BETA)</a>
+          </nav>
+        </nav>
+      </nav>
+    </div>
+
+    <div class="col-8">
+      <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
+        class="scrollspy-example-2" tabindex="0">
+        <div id="item-1">
+          <h2>Guia do Usuário</h2>
+          <h4>Introdução</h4>
+
+          <h5>Sobre a Ferramenta</h5>
+          <p style="text-align: justify;">
+            A UX-Tracking é a versão mais recente de uma ferramenta de captura multimodal gratuita e com licença de
+            código aberto. Essa ferramenta pode ser utilizada tanto por pesquisadores quanto por profissionais da
+            indústria que desejam realizar avaliações de User Experience (UX) em seus serviços e produtos. Além de
+            permitir o acesso direto do usuário junto a ferramenta, com maior facilidade, sem a necessidade de
+            configuração e instalação em sua máquina com módulos adicionais; a disponibilização de novos dispositivos de
+            interação; e documentação detalhada, para seu uso, configuração e desenvolvimento por qualquer usuário. Para
+            mais informações acesse a página Sobre no site da ferramenta através do <a
+              href="https://uxtracking.andrepereira.eng.br/">link</a>.
+          </p>
+
+          <h5>Observações Adicionais</h5>
+          <p style="text-align: justify;">
+            O seu uso livre não isenta os pesquisadores e profissionais das normas éticas que permeiam estudos
+            envolvendo seres humanos. Portanto, é recomendado que estudos com a UX-Tracking estejam de acordo as normas
+            vigentes de Ética em Pesquisa de cada área em que for utilizada (computação, saúde, educação, entre outros).
+          </p>
+        </div>
+        <div id="item-2">
+          <h4>Instalação</h4>
+        </div>
+        <div id="item-2-1">
+          <h5>Versão Web</h5>
+          <p style="text-align: justify;">
+            A instalação da ferramenta na versão Web consiste na instalação de uma extensão. A extensão pode ser
+            encontrada na Chrome Web Store, que é a loja de extensões do Google, e pode ser acessada através do <a
+              href="https://chromewebstore.google.com/?hl=pt-BR&utm_source=ext_sidebar">link</a>.
+          </p>
+          <p>
+            O passo a passo a seguir mostra como instalar a extensão.
+          <ol>
+            <li>
+              Após acessar a loja de extensões, localize a barra de busca e pesquise o nome da ferramenta: UX-Tracking.
+              <div class="img-guia mt-3 mb-3">
+                <figure style="text-align: center; font-style: italic;">
+                  <img src="static/imagens-guia/barra-de-busca-loja-extensoes.png"
+                    alt="Descrição alternativa da imagem">
+                  <figcaption style="margin-top: 15px;">Etapa 1 para instalar a extensão.</figcaption>
+                </figure>
+              </div>
+            </li>
+            <li>
+              Clique na opção UX-Tracking Extension, conforme a Figura abaixo
+              <div class="img-guia  mt-3 mb-3">
+                <figure style="text-align: center; font-style: italic;">
+                  <img src="static/imagens-guia/opcao-busca-ux-tracking.png" alt="Descrição alternativa da imagem">
+                  <figcaption style="margin-top: 15px;">Etapa 2 para instalar a extensão.</figcaption>
+                </figure>
+              </div>
+            </li>
+            <li>
+              Clique em "Usar no Chrome" para instalar a extensão, conforme a Figura abaixo
+              <div class="img-guia  mt-3 mb-3">
+                <figure style="text-align: center; font-style: italic;">
+                  <img src="static/imagens-guia/pagina-ux-tracking-loja.png" alt="Descrição alternativa da imagem">
+                  <figcaption style="margin-top: 15px;">Etapa 3 para instalar a extensão.</figcaption>
+                </figure>
+              </div>
+            </li>
+            <li>
+              Após isso, aparecerá uma mensagem pop-up perguntando se deseja adicionar a extensão, conforme a Figura
+              <div class="img-guia  mt-3 mb-3">
+                <figure style="text-align: center; font-style: italic;" width="10%" height="auto">
+                  <img src="static/imagens-guia/pop-up-adicionar-extensao.png" alt="Descrição alternativa da imagem"
+                    style="width: 70%; height: auto;">
+                  <figcaption style="margin-top: 15px;">Etapa 4 para instalar a extensão.</figcaption>
+                </figure>
+              </div>
+
+            </li>
+          </ol>
+          Com isso, a extensão estará instalada em seu navegador Chrome e pronta para uso.
+          </p>
+        </div>
+        <div id="item-2-2">
+          <h5>Versão Mobile</h5>
+          <p style="text-align: justify;">
+            O seu uso livre não isenta os pesquisadores e profissionais das normas éticas que permeiam estudos
+            envolvendo seres humanos. Portanto, é recomendado que estudos com a UX-Tracking estejam de acordo as normas
+            vigentes de Ética em Pesquisa de cada área em que for utilizada (computação, saúde, educação, entre outros).
+          </p>
+        </div>
+        <div id="item-3">
+          <h4>Como Usar?</h4>
+          <div id="item-3-1">
+            <h5>Versão Web</h5>
+            <p style="text-align: justify;">Para utilizar a extensão, você deve acessar a página de extensões do seu
+              navegador através do caminho demonstrado na Figura.</p>
+            <div class="img-guia  mt-3 mb-3">
+              <figure style="text-align: center; font-style: italic;">
+                <img src="static/imagens-guia/ativar-extensao.png" alt="Descrição alternativa da imagem"
+                  style="width: 70%; height: auto;">
+                <figcaption style="margin-top: 15px;">Etapa 1 para utilizar a extensão.</figcaption>
+              </figure>
+            </div>
+
+            <p style="text-align: justify;">Ative a extensão clicando no botão no canto inferior direito, conforme a
+              Figura</p>
+
+            <div class="img-guia  mt-3 mb-3">
+              <figure style="text-align: center; font-style: italic;">
+                <img src="static/imagens-guia/botao-ativar-extensao.png" alt="Descrição alternativa da imagem"
+                  style="width: 70%; height: auto;">
+                <figcaption style="margin-top: 15px;">Etapa 2 para utilizar a extensão.</figcaption>
+              </figure>
+            </div>
+
+            <p style="text-align: justify;">Após isso, abra uma nova aba no seu navegador e digite o endereço do site no
+              qual deseja utilizar a ferramenta. Ao acessar o site, aparecerá uma mensagem <i>pop-up</i> indicando que é
+              necessário realizar <i>login</i> na extensão, conforme a Figura anterior. Caso a mensagem <i>pop-up</i>
+              não apareça, deve-se realizar o <i>login</i> por meio do menu de extensões do Chrome, localizado ao lado
+              da barra de endereços e indicado na Figura.</p>
+
+            <div class="img-guia  mt-3 mb-3">
+              <figure style="text-align: center; font-style: italic;">
+                <img src="static/imagens-guia/menu-extensoes-chrome.png" alt="Descrição alternativa da imagem"
+                  style="width: 50%; height: auto;">
+              </figure>
+              <figure style="text-align: center; font-style: italic;">
+                <img src="static/imagens-guia/mensagem-pop-up-login-extensao.png" alt="Descrição alternativa da imagem"
+                  style="width: 50%; height: auto;">
+                <figcaption style="margin-top: 15px;">Etapa 3 e 4 para utilizar a extensão.</figcaption>
+              </figure>
+            </div>
+
+            <p style="text-align: justify;">Clique no menu de extensões e, logo em seguida, na extensão da UX-Tracking.
+              Após clicar, aparecerá a janela, mostrada na Figura <i>figura:janela-login-extensao</i>, para realizar o
+              <i>login</i>. Insira seu nome de usuário e senha criados ao realizar o cadastro no site da UX-Tracking.
+            </p>
+
+            <div class="img-guia  mt-3 mb-3">
+              <figure style="text-align: center; font-style: italic;">
+                <img src="static/imagens-guia/janela-login-extensao.png" alt="Descrição alternativa da imagem"
+                  style="width: 45%; height: auto;">
+                <figcaption style="margin-top: 15px;">Etapa 5 para utilizar a extensão.</figcaption>
+              </figure>
+            </div>
+
+            <p style="text-align: justify;">Após isso, selecione as variáveis que deseja que a ferramenta colete,
+              apresentadas na Figura abaixo. As opções disponíveis atualmente são: mouse, teclado, microfone e câmera.
+              Em seguida, clique em "Capturar". Feito isso, a ferramenta estará pronta para ser utilizada</p>
+
+            <div class="img-guia  mt-3 mb-3">
+              <figure style="text-align: center; font-style: italic;">
+                <img src="static/imagens-guia/opcoes-extensao.png" alt="Descrição alternativa da imagem"
+                  style="width: 40%; height: auto;">
+                <figcaption style="margin-top: 15px;">Etapa 6 para utilizar a extensão.</figcaption>
+              </figure>
+            </div>
+
+            <p>A Figura abaixo apresenta as indicações de que os dados estão sendo coletados de seu navegador.</p>
+
+            <div class="img-guia  mt-3 mb-3">
+              <figure style="text-align: center; font-style: italic;">
+                <img src="static/imagens-guia/captura-dados-navegador.png" alt="Descrição alternativa da imagem"
+                  style="width: 40%; height: auto;">
+                <figcaption style="margin-top: 15px;">Etapa 7 para utilizar a extensão.</figcaption>
+              </figure>
+            </div>
+
+            <p>Para desabilitar a extensão, basta clicar no botão azul apresentado na Figura da etapa 6, para
+              desmarcá-lo.
+            </p>
+
+            </p>
+          </div>
+        </div>
+
+        <div id="item-3-2">
+          <h5>Versão Mobile</h5>
+          <p>Em construção...</p>
+        </div>
+        <div id="item-4">
+          <h4>Métodos de Análise dos Resultados</h4>
+        </div>
+        <div id="item-4-1">
+          <h5>Bertimbal</h5>
+          <p>Para analisar os dados obtidos através da captura multimodal, clique em "Análise" no menu lateral à
+            esquerda, conforme a Figura abaixo</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/menu-lateral-com-seta.png" alt="Descrição alternativa da imagem"
+                style="width: 25%; height: auto;">
+              <figcaption style="margin-top: 15px;">Etapa 1 para analisar os dados</figcaption>
+            </figure>
+          </div>
+
+          <p>Ao acessar a página de análise, você encontrará algumas opções para analisar os dados. Dentre elas, no
+            momento, apenas está disponível a BERTimbau, conforme a figura a seguir.</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/tipos-analise-com-seta.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Etapa 2 para analisar os dados</figcaption>
+            </figure>
+          </div>
+
+          <p>Selecione o tipo de análise BERTimbau e escolha a coleta de dados que será analisada, conforme a Figura
+            abaixo</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/selecionar-coleta-dados-com-seta.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Etapa 3 para analisar os dados</figcaption>
+            </figure>
+          </div>
+
+          <p>Para que a análise seja realizada, os dados coletados devem incluir áudio. Caso contrário, a análise
+            através do modelo BERTimbau não será possível e uma mensagem será exibida, conforme a Figura abaixo</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/bertimbau-dados-sem-audio.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Mensagem de erro - BERTimbau</figcaption>
+            </figure>
+          </div>
+
+          <p>Caso haja áudios em sua coleta de dados, a ferramenta irá processá-los, gerando como resultado gráficos
+            semelhantes aos das próximas duas Figuras </p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/resultado1-bertimbau.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Gráficos de resultado do BERTimbau</figcaption>
+            </figure>
+          </div>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/resultado2-bertimbau.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Gráficos de resultado do BERTimbau</figcaption>
+            </figure>
+          </div>
+
+          <p>Além disso, é possível baixar os dados de voz, se desejar. Basta clicar em "Baixar" ao final da página de
+            resultados do BERTimbau. Um arquivo csv será baixado contendo informações sobre a coleta de dados de voz,
+            conforme a Figura abaixo</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/csv-bertimbau.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Dados de voz em CSV</figcaption>
+            </figure>
+          </div>
+
+        </div>
+        <div id="item-4-2">
+          <h5>Mapa de Calor</h5>
+          <p style="text-align: justify;">Outras aplicações através das quais é possível fazer análises são encontradas
+            em "Visualização" no menu lateral à esquerda, conforme a Figura a seguir. Nesta página, é possível encontrar
+            aplicações que indicam e demonstram a interação do usuário.</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/menu-lateral-com-seta-visualização.png"
+                alt="Descrição alternativa da imagem" style="width: 25%; height: auto;">
+              <figcaption style="margin-top: 15px;">Etapa 1 para visualização das interações do usuário</figcaption>
+            </figure>
+          </div>
+
+          <p>Ao colocar o <i>mouse</i> sobre cada item do menu, uma breve descrição será mostrada, conforme a Figura
+            abaixo.</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/caixa-explicacao-menu.png" alt="Descrição alternativa da imagem"
+                style="width: 45%; height: auto;">
+              <figcaption style="margin-top: 15px;">Descrição de página apresentada no menu</figcaption>
+            </figure>
+          </div>
+
+          <p>Na página de visualização, clique em "Mapa de calor temporal", indicado na Figura abaixo.</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/pagina-visualizacao-com-seta.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Página Visualização</figcaption>
+            </figure>
+          </div>
+
+          <p style="text-align: justify;">Clique na aplicação de mapa de calor indicada na figura anterior e selecione
+            os dados sobre os quais deseja criar um mapa de calor. Após isso, aguarde a plotagem terminar. Concluída a
+            plotagem, será apresentado um temporizador mostrando a interação do usuário e os pontos de interação, bem
+            como as falas ditas nos momentos exatos, conforme a Figura abaixo.</p>
+
+          <div class="img-guia  mt-3 mb-3">
+            <figure style="text-align: center; font-style: italic;">
+              <img src="static/imagens-guia/temporizador-mapa-de-calor.png" alt="Descrição alternativa da imagem"
+                style="width: 80%; height: auto;">
+              <figcaption style="margin-top: 15px;">Resultado do mapa de calor</figcaption>
+            </figure>
+          </div>
+
+        </div>
+
+        <div id="item-4-3">
+          <h5>Reconhecimento e Análise de Expressões Faciais (BETA)</h5>
+          <p style="text-align: justify;"> A funcionalidade de Reconhecimento e Análise de Expressões Faciais
+            encontra-se em fase de desenvolvimento e faz parte dos estudos futuros para ser implementada em nossa
+            plataforma. Esta característica, que permitirá uma interação mais avançada e personalizada, está sendo
+            cuidadosamente planejada para atender aos mais altos padrões de qualidade e eficiência.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var paginas = document.getElementById('guialateral');
+  var botao = document.getElementById('botaolateral');
+  var aberto = false;
+
+  botao.addEventListener("click", myFunction);
+
+  function myFunction() {
+    if (aberto == false) {
+      paginas.style.left = '0px';
+      botao.style.left = "155px"
+      botao.innerText = '<';
+      aberto = true;
+    }
+    else {
+      paginas.style.left = '-220px';
+      botao.style.left = "0px";
+      botao.innerText = '>';
+      aberto = false;
+    }
+  }
+</script>
+{% endblock %}

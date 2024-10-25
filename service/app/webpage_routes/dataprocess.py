@@ -1,18 +1,12 @@
 import io
-import json
-import base64
 import gridfs
-import asyncio
 import zipfile
-from PIL import Image
 import pandas as pd
-from io import StringIO
 from bson import ObjectId
 from datetime import datetime
 from django.core.paginator import Paginator
 from app.utils.functions import nlpBertimbau, df_graph_sentiment
-from app.utils.data import userdata2frame, remove_non_utf8, userdata_summary
-from app.utils.plot import create_blank_image_base64, generate_trace_recording
+from app.utils.data import userdata2frame, userdata_summary
 from flask import (
     render_template,
     Blueprint,
@@ -26,12 +20,14 @@ from flask import (
 )
 from flask import current_app as app
 
-data_bp = Blueprint(
-    "data_bp", "__name__", template_folder="templates", static_folder="static"
+from app.webpage_routes import login_required
+
+dataprocess_bp = Blueprint(
+    "dataprocess_bp", "__name__", template_folder="templates", static_folder="static"
 )
 
 
-@data_bp.post("/datafilter/<username>/<metadata>")
+@dataprocess_bp.post("/datafilter/<username>/<metadata>")
 def datafilter_post(username, metadata):
     if "username" in session:
         # faz a leitura da base de dados de coletas do usuário
@@ -229,7 +225,7 @@ def datafilter_post(username, metadata):
         return render_template("index.html", session=False, title="Home")
 
 
-@data_bp.get("/datafilter/<username>/<metadata>")
+@dataprocess_bp.get("/datafilter/<username>/<metadata>")
 def datafilter_get(username, metadata):
     if "username" in session:
         # faz a leitura da base de dados de coletas do usuário
@@ -289,7 +285,7 @@ def datafilter_get(username, metadata):
         return redirect(url_for("index_bp.index_get"))
 
 
-@data_bp.post("/dataanalysis/<username>/<model>")
+@dataprocess_bp.post("/dataanalysis/<username>/<model>")
 def dataanalysis_post(username, model):
     if "username" in session:
         # faz a leitura da base de dados de coletas do usuário
@@ -335,7 +331,7 @@ def dataanalysis_post(username, model):
         return render_template("login.html", session=False, title="Login")
 
 
-@data_bp.get("/dataanalysis/<username>/<model>")
+@dataprocess_bp.get("/dataanalysis/<username>/<model>")
 def dataanalysis_get(username, model):
     if "username" in session:
         # faz a leitura da base de dados de coletas do usuário
@@ -376,183 +372,3 @@ def dataanalysis_get(username, model):
         return render_template("login.html", session=False, title="Login")
 
 
-@data_bp.post("/downloadAudio")
-def downloadAudio():
-    userfound = app.db.users.find_one({"username": session["username"]})
-    collection_name = f"data_{userfound['_id']}"
-
-    valueData = request.form["data"]
-
-    df_voice = userdata2frame(app.db, collection_name, valueData, "voice")
-    df_nlBertimbau = nlpBertimbau(df_voice)
-
-    # Convertendo o DataFrame em um buffer de texto
-    csv_buffer = StringIO()
-    df_nlBertimbau.to_csv(csv_buffer, index=False)
-
-    # Obtendo o conteúdo do buffer como uma string
-    file_content = csv_buffer.getvalue()
-
-    return Response(
-        file_content,
-        headers={
-            "Content-Type": "text/csv",
-            "Content-Disposition": "attachment; filename=voice.csv",
-        },
-    )
-
-
-@data_bp.post("/dataview/<username>/<plot>")
-async def dataview_post(username, plot):
-    if "username" in session:
-        # faz a leitura da base de dados de coletas do usuário
-        userfound = app.db.users.find_one({"username": session["username"]})
-        collection_name = f"data_{userfound['_id']}"
-        dir = request.form["dir"]
-
-        if plot == "heatmap":
-            results = {}
-            full_base64 = {}
-
-            df_trace = userdata2frame(
-                app.db,
-                collection_name,
-                dir,
-                ["click", "wheel", "mousemove"],
-            ) 
-            
-            df_audio = userdata2frame(app.db, collection_name, dir, "voice")
-
-            # Filtra os DataFrames para diminuir o tamanho do JSON enviado
-            filtered_df_trace = df_trace[["time", "type", "x", "y", "image", "scroll"]].copy()
-            filtered_df_voice = df_audio[["text", "time", "image"]].copy()
-
-            def process_image(im_id):
-                try:
-                    file_data = app.fs.get(im_id).read()
-                    img = Image.open(io.BytesIO(file_data))
-                    buffered = io.BytesIO()
-                    img.save(buffered, format="PNG", optimize=True)
-                    img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
-                    return str(im_id), "data:image/png;base64," + img_base64
-                except Exception as e:
-                    print(f"Erro ao processar a imagem {im_id}: {e}")
-                    return str(im_id), create_blank_image_base64()
-
-            async def async_process_image(im_id):
-                return await asyncio.to_thread(process_image, im_id)
-
-            tasks = [async_process_image(im_id) for im_id in df_trace["image"]]
-            results_img = await asyncio.gather(*tasks)
-
-            for im_id, img_base64 in results_img:
-                full_base64[im_id] = img_base64
-
-            # Remove caracteres não UTF-8 dos DataFrames
-            filtered_df_trace = remove_non_utf8(filtered_df_trace)
-            filtered_df_voice = remove_non_utf8(filtered_df_voice)
-
-            results["plot"] = "heatmap"
-            results["images"] = json.dumps(full_base64)
-            results["trace"] = filtered_df_trace.to_json(orient="records")
-            results["voice"] = filtered_df_voice.to_json(orient="records")
-
-            return results
-
-        elif plot == "recording":
-            results = {}
-            full_base64 = {}
-
-            df_trace = userdata2frame(
-                app.db,
-                collection_name,
-                dir,
-                ["eye", "keyboard", "freeze", "click", "wheel", "mousemove"],
-            )
-
-            full_ims, type_icon = generate_trace_recording(df_trace)
-
-            async def transform_b64(key, img):
-                try:
-                    buffered = io.BytesIO()
-                    img.save(buffered, format="PNG", optimize=True)
-                    img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
-                    return str(key), "data:image/png;base64," + img_base64
-                except Exception as e:
-                    print(f"Erro ao processar a imagem {key}: {e}")
-                    return str(key), create_blank_image_base64()
-
-            tasks = [transform_b64(key, img) for key, img in full_ims.items()]
-            transform_img = await asyncio.gather(*tasks)
-
-            for key, img in transform_img:
-                full_base64[key] = img
-
-            df_trace_site = df_trace[
-                ["site", "type", "time", "x", "y", "scroll", "height"]
-            ].copy()
-
-            # resultados enviados para js
-            results["plot"] = "recording"
-            results["images"] = json.dumps(full_base64)
-            results["icons"] = json.dumps(type_icon)
-            results["trace"] = df_trace_site.to_json(orient="records")
-
-            return results
-
-        elif plot == "nlp":
-            return
-
-        else:
-            flash("404\nPage not found!")
-            return render_template(
-                "data_analysis.html", username=username, title="Análise"
-            )
-
-    # usuário não está logado
-    else:
-        flash("Faça o login para continuar!")
-        return render_template("login.html", session=False, title="Login")
-
-
-@data_bp.get("/dataview/<username>/<plot>")
-def dataview_get(username, plot):
-    if "username" in session:
-        # faz a leitura da base de dados de coletas do usuário
-        userfound = app.db.users.find_one({"username": session["username"]})
-        if not userfound:
-            abort(404)
-
-        collection_name = f"data_{userfound['_id']}"
-        documents = app.db[collection_name].find({})
-
-        plots = ["heatmap", "recording"]
-
-        if plot == "default":
-            return render_template(
-                "data_view.html", username=username, title="Visualização"
-            )
-        elif plot in plots:
-            data, _ = userdata_summary(documents)
-            data = list(reversed(data))
-            paginator = Paginator(data, 5)
-            page_number = request.args.get("page_number", 1, type=int)
-            page_obj = paginator.get_page(page_number)
-            page_coleta = paginator.page(page_number).object_list
-
-            return render_template(
-                "data_view.html",
-                username=username,
-                plot=plot,
-                items=page_coleta,
-                page_obj=page_obj,
-                title="Visualização",
-            )
-        else:
-            flash("404\nPage not found!")
-            return render_template(
-                "data_view.html", username=username, title="Visualização"
-            )
-    else:
-        flash("Faça o login para continuar!")
-        return render_template("login.html", session=False, title="Login")

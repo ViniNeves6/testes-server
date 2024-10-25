@@ -1,0 +1,524 @@
+{% extends "base_not_authenticated.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        padding-top: 80px;
+    }
+</style>
+
+<div class="container col-xxl-8 px-5 py-5 ">
+    <div class="row flex-lg-row-reverse align-items-centers g-5 ">
+        <div class="col-10 col-sm-8 col-lg-6 mx-auto mx-lg-0 align-items-center text-center text-lg-end">
+            <img src="{{ url_for('static', filename='ui_ux_design.svg')}}" class="img-fluid img-up" id="ux-image"
+                alt="Bootstrap Themes" style="margin-left: 10%;" width="750" height="500" loading="lazy">
+        </div>
+        <div class="col">
+            <h1 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">Avaliação de UX em Interfaces Web e Mobile de
+                Forma Automatizada</h1>
+            <p class="lead text-justify">Realize avaliações de UX rastreando múltiplas interações do usuário com a
+                ferramenta UX-Tracking: User eXperience Tracking. Com a nossa solução é possível coletar dados de
+                interação do usuário em tempo real, mapear jornadas do usuário, identificar pontos de interesse e
+                fornecer insights relacionados e Experiência do Usuário em Ambientes Web e Mobile.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mt-4">
+                <a href="{{ url_for('auth_bp.login_get') }}"><button type="button"
+                        transition-style="in:square:bottom-right"
+                        class="btn btn-primary text-white btn-lg px-4 me-md-2">Entrar</button></a>
+                <a href="{{ url_for('auth_bp.register_get') }}"><button type="button"
+                        transition-style="in:square:bottom-right"
+                        class="btn text-white btn-outline-secondary btn-lg px-4">Obter acesso</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="b-example-divider" id="h-divider"></div>
+
+<div class="container px-5 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom mb-2 border-primary border-1">O que nossa ferramenta captura?</h2>
+
+    <div class="row px-5 ">
+
+        <div class="col">
+            <h2 class="pb-2  text-body-emphasis border-3 mt-5 text-center">Ambientes Web</h2>
+            <img src="{{ url_for('static', filename='interface-web.svg')}}"
+                class="efeito-flutuante-infinito img-fluid rounded mx-auto d-block" alt="Bootstrap Themes"
+                style="width: 300px" ; loading="lazy">
+
+            <div id="carouselExampleInterval" carousel-transition-duration="2s" carousel-indicator-active-bg="black"
+                data-bs-ride="carousel" class=" carousel slide carousel-fade mt-5">
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+
+                        <div class="d-block info-item w-100">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='eye-tracking.svg')}}"
+                                                class="justify-content-center" alt="Bootstrap Themes" width="50vh"
+                                                height="auto" loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="Permite saber quais pontos na interface chamam mais a atenção do usuário.">
+                                                Rastreamento do olhar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='browser-historic.svg')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="A ferramenta permite analisar o histórico de navegação do usuário cruzando dados de interações capturados">
+                                                Histórico de Navegação
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='mouse-tracking.svg')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="Possibilita rastrear as ações do usuário, como caminhos percorridos com o mouse e clicks.">
+                                                Rastreio do mouse
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="carousel-caption d-none d-md-block">
+
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="12000">
+
+                        <div class="d-block w-100">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class=" text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='voice-recording.svg')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="Permite realizar análises de sentimento do usuário, utilizando métodos como o Think Aloud.">
+                                                Captura de Voz
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class=" text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='keyboard.svg')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="É possível fazer a captura das interações no teclado, armazenando o que o usuário está digitando">
+                                                Captura do teclado
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='expressao-facial.png')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="A ferramenta também permite a captura das expressões faciais para a análise de emoções dos usuários durante a captura.">
+                                                Expressão Facial
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+
+            </div>
+        </div>
+
+        <div class="col mt-5">
+
+            <h2 class="pb-2  text-body-emphasis border-3 mt-10 text-center">Ambientes Mobile</h2>
+            <img src="\static\interface-mobile.svg" class="img-fluid rounded mx-auto d-block efeito-flutuante-infinito"
+                alt="..." style="width: 300px;">
+
+            <div id="carouselExampleInterval2" carousel-transition-duration="2s" carousel-indicator-active-bg="black"
+                data-bs-ride="carousel" class=" carousel slide carousel-fade mt-5">
+
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active" data-bs-interval="10000">
+                        <div class="d-block w-100">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='eye-tracking.svg')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="Permite saber quais pontos na interface chamam mais a atenção do usuário.">
+                                                Rastreamento do olhar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='teclado.png')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="É possível fazer a captura das interações no teclado, armazenando o que o usuário está digitando">
+                                                Captura do teclado
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='touch-pad.png')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="Através do captura do touch, é possível rastrear as interações do usuário, como caminhos percorridos durante a captura">
+                                                Rastreio do Touch
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="carousel-item" data-bs-interval="12000">
+                        <div class="d-block w-100">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class=" d-block text-center w-100">
+                                            <img src="{{ url_for('static', filename='voice-recording.svg')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="Permite realizar análises de sentimento do usuário, utilizando métodos como o Think Aloud.">
+                                                Captura de Voz
+                                            </button>
+                                            <!--<p class="small">Permite realizar análises de sentimento do usuário, utilizando métodos como o <a href="https://en.wikipedia.org/wiki/Think_aloud_protocol">Think Aloud</a>.</p>-->
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-center d-block w-100">
+                                            <img src="{{ url_for('static', filename='expressao-facial.png')}}"
+                                                class="justify-content-center" width="50vh" height="auto"
+                                                loading="lazy">
+                                            <button type="button" class="btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-title="A ferramenta também permite a captura das expressões faciais para a análise de emoções dos usuários durante a captura.">
+                                                Expressão Facial
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval2"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval2"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="b-example-divider" id="h-divider"></div>
+
+<div class="container col-xxl-8 px-5 py-5">
+    <h2 class="pb-2 border-bottom  border-primary border-1">O que a ferramenta realiza a partir dessas capturas?</h2>
+    <div class="row flex-lg-row align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-5  mx-auto d-flex justify-content-center">
+            <img src="{{ url_for('static', filename='product.svg')}}" class="d-block mx-lg-auto img-fluid"
+                alt="Bootstrap Themes" width="500" height="300" loading="lazy">
+        </div>
+        <div class="col-lg-7">
+            <p class="lead text-justify">Após a captura dos dados, explore-os utilizando recursos avançados de
+                visualização e geração de relatórios. A ferramenta UX-Tracking fornece insights valiosos para melhorar a
+                usabilidade, otimizar a interação do usuário e elevar a satisfação dos usuários. Com nossa ferramenta, é
+                possível explorar profundamente cada tipo de dado capturado através dos módulos de visualização,
+                análises e clusterização dos dados.</p>
+        </div>
+    </div>
+
+    <h2 class="pb-2  text-body-emphasis border-1 text-center">Recursos Disponíveis para a Exploração dos Dados</h2>
+
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+
+        <div class="feature col">
+            <div class="feature-icon align-items-center justify-content-center fs-2 mb-3"
+                style="display: flex; justify-content: center; align-items: center;">
+                <img src="{{ url_for('static', filename='mapa-de-calor.png')}}" class="d-block mx-lg-auto img-fluid"
+                    width="80vh" height="auto" loading="lazy">
+            </div>
+
+            <h3 class="fs-2 text-body-emphasis text-center">Mapa de Calor Temporal</h3>
+
+            <p class="text-center">Gerado a partir dos rastreios do <strong>mouse</strong> e dos <strong>olhos</strong>,
+                investigando as principais regiões de interesse da sua interface</p>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-center py-1">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn text-white btn-outline-secondary btn-lg  me-md-1"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Saber mais
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mapa de Calor Temporal</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-justify">O recurso de Mapa de Calor Temporal oferece <strong>insights
+                                        valiosos</strong> sobre como os visitantes navegam e interagem com o seu site.
+                                    Utilizando dados avançados de <strong>rastreamento do mouse e do olhar</strong>,
+                                    este recurso ilustra visualmente as áreas que capturam mais atenção e aquelas que
+                                    são frequentemente ignoradas. </p>
+                                <p class="text-justify"><strong>Veja um video demostrativo:</strong></p>
+
+                                <div class="d-flex justify-content-center" style="height: 100%;">
+                                    <!-- Altura opcional -->
+                                    <video controls width="400" height="auto" loading="lazy">
+                                        <source src="{{ url_for('static', filename='mapa-de-calor.mp4') }}"
+                                            type="video/mp4">
+                                        Seu navegador não suporta o elemento de vídeo.
+                                    </video>
+
+                                </div>
+                                <p class="mt-4 text-justify">Com esta poderosa ferramenta, você pode:</p>
+                                <ul class="text-justify">
+                                    <li>
+                                        <strong>Identificar Padrões de Comportamento:</strong> Entenda os caminhos mais
+                                        comuns que os usuários seguem, revelando o fluxo natural da experiência no seu
+                                        site.
+                                    </li>
+                                    <li>
+                                        <strong>Destacar Regiões de Interesse:</strong> Descubra quais elementos ou
+                                        seções atraem mais atenção, permitindo otimizações focadas naquilo que realmente
+                                        importa para o seu público.
+                                    </li>
+                                    <li>
+                                        <strong>Revelar Áreas de Desinteresse:</strong> Identifique seções menos
+                                        engajadoras para aprimorar ou reestruturar, garantindo uma experiência de
+                                        usuário mais envolvente.
+                                    </li>
+                                    <li>
+                                        <strong>Aprimorar Usabilidade e Eficiência:</strong> Faça ajustes informados na
+                                        sua interface para melhorar a navegação, aumentar a satisfação do usuário e
+                                        otimizar conversões.
+                                    </li>
+                                </ul>
+
+                                <p class="text-justify">Além disso, são oferecidas outras imagens que destacam o
+                                    rastreio usuário durante o sitem veja:</p>
+
+                                <div class="d-flex justify-content-center">
+                                    <img src="{{ url_for('static', filename='rastreio.png') }}" width="400px"
+                                        height="auto" loading="lazy">
+                                </div>
+
+                                <p class="mt-4 text-justify">Este recurso é essencial para quem busca aprimorar a
+                                    experiência do usuário, melhorar a usabilidade do site e validar eficazmente o
+                                    design da interface. A análise desses insights permitem a <strong>tomada de decisões
+                                        estratégicas</strong> que conduzem às melhorias do seu site.</p>
+
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary text-white"
+                                    data-bs-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn text-white btn-primary"
+                                    data-bs-dismiss="modal">Entendido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature col">
+            <div class="feature-icon align-items-center justify-content-center fs-2 mb-3"
+                style="display: flex; justify-content: center; align-items: center;">
+                <img src="{{ url_for('static', filename='processamento-de-linguagem-natural.png')}}"
+                    class="d-block mx-lg-auto img-fluid" width="100vh" height="auto" loading="lazy">
+            </div>
+            <h3 class="fs-2 text-body-emphasis text-center">BERTimbal</h3>
+            <p class="text-center ">A análise dos sentimentos por meio da coleta de <strong>áudio</strong> dos usuários
+                propõe enriquecer ainda mais os insigts de Usabilidade</p>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-center py-1">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-secondary text-white btn-lg  me-md-1"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal_3">
+                    Saber mais
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade modal-dialog-scrollable" id="exampleModal_3" tabindex="-1"
+                    aria-labelledby="exampleModalLabel_3" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel_3">Análise BERTimbal</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <p class="text-justify">Explore uma nova dimensão dos <strong>insights</strong> de
+                                    usabilidade a partir da <strong>análise de sentimentos através da coleta de
+                                        aúdio</strong>. Ao coletar e analisar a voz dos usuários, oferecemos uma
+                                    compreensão mais profunda da interação com o seu site a partir da seguintes emoções:
+                                </p>
+
+                                <div class="d-flex justify-content-center">
+                                    <img src="{{ url_for('static', filename='result-bertimbal2.jpeg') }}" width="500px"
+                                        height="auto" loading="lazy">
+                                </div>
+
+                                <p class="text-justify mt-3">Essa abordagem não só permite a <strong>análise dos
+                                        sentimentos por meio de áudio</strong>, mas também busca enriquecer
+                                    significativamente o entendimento sobre o comportamento, usabilidade e reações dos
+                                    usuários durante a navegação.</p>
+
+                                <p class="text-justify">Para uma representação mais visual das emoções obtidas durante a
+                                    coleta dos usuários, oferecemos um dashboard completo com um <strong>gráfico
+                                        radar</strong> das emoções, veja: </p>
+
+                                <div class="d-flex justify-content-center">
+                                    <img src="{{ url_for('static', filename='result-bertimbal.jpeg') }}" width="450px"
+                                        height="auto" loading="lazy">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary text-white"
+                                    data-bs-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn text-white btn-primary"
+                                    data-bs-dismiss="modal">Entendido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature col">
+            <div class="feature-icon  align-items-center justify-content-center fs-2 mb-3"
+                style="display: flex; justify-content: center; align-items: center;">
+                <img src="{{ url_for('static', filename='comentarios.png')}}" class="d-block mx-lg-auto img-fluid"
+                    width="80vh" height="auto" loading="lazy">
+            </div>
+            <h3 class="fs-2 text-body-emphasis text-center">Análise de Expressões Faciais (versão BETA)</h3>
+            <p class="text-center">O <strong>Monitoramento de Expressões Faciais</strong> ajuda a identificar as
+                principais reações dos usuários, oferecendo um compreendimento profundo da sua interação com a Interface
+            </p>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-center py-1">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn text-white btn-outline-secondary btn-lg  me-md-1"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal_2">
+                    Saber mais
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade modal-dialog-scrollable" id="exampleModal_2" tabindex="-1"
+                    aria-labelledby="exampleModalLabel_2" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel_2">Análise das Sentimentos</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-justify">A ferramenta também permite a <strong>captura das expressões
+                                        faciais</strong> para a análise de emoções dos usuários durante a captura. Essa
+                                    abordagem ajuda a identificar pontos específicos de engajamento ou de dificuldade,
+                                    permitindo ajustes mais precisos em produtos, serviços ou processos.</p>
+                                <p class="text-justify">A funcionalidade de Análise de Expressões Faciais está
+                                    atualmente <strong>em desenvolvimento</strong>, visando uma futura implementação em
+                                    nossa plataforma. Tal recurso promete aprimorar significativamente a experiência do
+                                    usuário, oferecendo respostas e serviços mais alinhados às suas expressões e
+                                    emoções.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary text-white"
+                                    data-bs-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn text-white btn-primary"
+                                    data-bs-dismiss="modal">Entendido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

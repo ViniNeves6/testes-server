@@ -2,16 +2,20 @@ import io
 import re
 import torch
 import base64
+from io import StringIO
 from PIL import Image
 from bson import ObjectId
 import torch.nn.functional as F
 from torchvision.transforms import v2 as T
-from flask import request, jsonify
+from flask import request, jsonify, session, Response
 from flask_restx import Namespace, Resource, fields
 from flask import current_app as app
 
+from app.utils.data import userdata2frame
+from app.utils.functions import nlpBertimbau
+
 data_ns = Namespace(
-    "data", description="Operações de recebimento de dados", path="/api/data"
+    "data", description="Operações de processamento de dados", path="/api/data"
 )
 
 # Modelos para Swagger
@@ -67,13 +71,50 @@ face_expression_model = data_ns.model(
     {"data": fields.String(required=True, description="Imagem codificada em Base64")},
 )
 
+# Modelo para a requisição do download de áudio
+download_audio_model = data_ns.model(
+    "DownloadAudioRequest",
+    {
+        "data": fields.String(
+            required=True, description="Identificador da coleta de dados de voz"
+        ),
+    },
+)
+
 
 # Rota para envio dos dados
 @data_ns.route("/receive")
 class ReceiveData(Resource):
     @data_ns.expect(receive_model)
     def post(self):
-        """Recebe dados da ferramenta"""
+        """
+        Recebe dados de interação do usuário.
+
+        **Entrada JSON**:
+          - `metadata`: Metadados contendo informações sobre o usuário, data, site e imagem.
+            - `userID`: ID do usuário (obrigatório).
+            - `dateTime`: Data e hora do evento (obrigatório).
+            - `site`: Nome do site (obrigatório).
+            - `image`: Imagem codificada em Base64 (obrigatório).
+          - `data`: Dados de interação com detalhes da interação do usuário.
+            - `type`: Lista de tipos de interação (obrigatório).
+            - `time`: Lista de tempos de cada interação (obrigatório).
+            - `class`: Lista de classes de interação (obrigatório).
+            - `id`: Lista de IDs de interação (obrigatório).
+            - `x`: Lista de posições X (obrigatório).
+            - `y`: Lista de posições Y (obrigatório).
+            - `scroll`: Lista indicando se houve rolagem (obrigatório).
+            - `value`: Lista de valores da interação (obrigatório).
+
+        **Retorno**:
+          - `status`: Código de status HTTP.
+          - `message`: Mensagem de confirmação ou erro.
+
+        **Códigos de Resposta**:
+          - 200: Dados recebidos com sucesso.
+          - 400: Dados JSON não encontrados.
+          - 403: ID do usuário ausente ou usuário não encontrado.
+        """
         content = request.get_json(silent=True)
         if not content:
             message = "No JSON data found"
@@ -175,7 +216,21 @@ class ReceiveData(Resource):
 class FaceExpression(Resource):
     @data_ns.expect(face_expression_model)
     def post(self):
-        """Recebe uma imagem e retorna a expressão facial"""
+        """
+        Recebe uma imagem e retorna a expressão facial inferida.
+
+        **Entrada JSON**:
+          - `data`: Imagem codificada em Base64 (obrigatório).
+
+        **Retorno**:
+          - `status`: Código de status HTTP.
+          - `message`: Mensagem de sucesso ou erro.
+          - `data`: Dicionário com a expressão facial e respectivas probabilidades.
+
+        **Códigos de Resposta**:
+          - 200: Expressão facial inferida com sucesso.
+          - 500: Erro interno durante o processamento da imagem.
+        """
         try:
             image_data = request.form["data"]
             # Converte a Base64 para bytes
@@ -226,3 +281,55 @@ class FaceExpression(Resource):
             status = 500
             response = {"data": None, "message": message, "status": status}
             return jsonify(response), status
+
+
+@data_ns.route("/downloadAudio")
+class DownloadAudio(Resource):
+    @data_ns.expect(download_audio_model)
+    def post(self):
+        """
+        Gera um arquivo CSV com os dados de análise de voz do usuário para download.
+
+        **Entrada JSON**:
+          - `data`: Identificador da coleta de dados de voz a ser processada (obrigatório).
+
+        **Retorno**:
+          - Arquivo CSV com o conteúdo das interações de voz analisadas.
+
+        **Códigos de Resposta**:
+          - 200: CSV gerado com sucesso e pronto para download.
+          - 400: Erro de requisição, campo `data` ausente ou inválido.
+          - 404: Usuário não encontrado ou dados de voz não encontrados.
+        """
+        # Verifica se o usuário está na sessão
+        userfound = app.db.users.find_one({"username": session.get("username")})
+        if not userfound:
+            return jsonify({"message": "Usuário não encontrado.", "status": 404}), 404
+
+        collection_name = f"data_{userfound['_id']}"
+
+        # Valida a entrada de dados
+        data = request.get_json()
+        valueData = data.get("data")
+        if not valueData:
+            return (
+                jsonify({"message": "Campo 'data' é obrigatório.", "status": 400}),
+                400,
+            )
+
+        # Processa os dados de voz
+        df_voice = userdata2frame(app.db, collection_name, valueData, "voice")
+        df_nlBertimbau = nlpBertimbau(df_voice)
+
+        # Converte o DataFrame em CSV e prepara para o download
+        csv_buffer = StringIO()
+        df_nlBertimbau.to_csv(csv_buffer, index=False)
+        file_content = csv_buffer.getvalue()
+
+        return Response(
+            file_content,
+            headers={
+                "Content-Type": "text/csv",
+                "Content-Disposition": "attachment; filename=voice.csv",
+            },
+        )

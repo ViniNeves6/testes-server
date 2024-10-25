@@ -1,0 +1,277 @@
+{% extends "base_not_authenticated.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/equipe.css') }}">
+
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='js/meuscript.js') }}"></script>
+
+<div class="minha-div mt-5">
+    <h2 class="text-white">Conheça a nossa Equipe</h2>
+    <h6 class="meu-paragrafo ">O desenvolvimento do Framework UX-Tracking e de seu ecossistema é orientado por uma
+        equipe de Pesquisadores e Desenvolvedores de diferentes Universidades Brasileiras, apresentados abaixo:</h6>
+</div>
+
+<hr class="mt-3 mb-3" style="width: 80%; margin: 0 auto; ">
+
+
+<div class="minha-div-membros">
+    <section>
+        <div class="text-center">
+            <h3 class="mb-2 text-white">Time de Desenvolvimento</h3>
+            <h6 class="mb-4 text-center" style="width: 100%">Conheça o time de desenvolvimento por trás do UX-Tracking,
+                a equipe que está ativamente envolvida na manutenção, aprimoramento e criação de soluções inovadoras
+                para o desenvolvimento contínuo da ferramenta.</h6>
+        </div>
+
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="member-card">
+                    <img src="static/membros/lyanh.jpg" alt="Foto de Lyanh Vinicios" class="member-img">
+                    <h3>Lyanh V. Lopes Pinto</h3>
+                    <p>Engenheiro da Computação (UFPA)<br><strong>Desenvolvedor Front
+                            End</strong><br>lyanhlps320@gmail.com</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <div>
+                            <a href="https://github.com/LyanhVini">
+                                <img src="static/git.png" width="35" height="35" alt="Github de Lyanh">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="http://lattes.cnpq.br/8719063985949204">
+                                <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Github de Lyanh">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="member-card">
+                    <img src="static/membros/rafael.jpeg" alt="Foto de Rafael" class="member-img">
+                    <h3>Rafael T. Moura</h3>
+                    <p>Engenheiro da Computação (UFPA)<br><strong>Desenvolvedor Front e Back
+                            End</strong><br>flavio.moura@itec.ufpa.br</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <div>
+                            <a href="https://github.com/Horusprg">
+                                <img class="" src="static/git.png" width="35" height="35" alt="Github de Rafael">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="http://lattes.cnpq.br/4713619033514788">
+                                <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Github de Rafael">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="member-card">
+                    <img src="static/membros/vinicius.jpeg" style="width: 145px; height: 160px;" alt="Foto de Vinicius"
+                        class="member-img">
+                    <h3>André Neves Alves</h3>
+                    <p>Engenheiro de Telecomunicações (UFPA)<br><strong>Desenvolvedor Back
+                            End</strong><br>andre.neves.alves@itec.ufpa.br</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <div>
+                            <a href="https://github.com/ViniNeves6">
+                                <img src="static/git.png" width="35" height="35" alt="Github de Vinicius">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="http://lattes.cnpq.br/2788289035536493">
+                                <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Github de Vinicius">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 container mt-4">
+                <div class="member-card">
+                    <img src="static/membros/williane.jpeg" alt="Foto de Williane" class="member-img">
+                    <h3>Williane Pereira</h3>
+                    <p>Sistema de Informação (UFPA)<br><strong>Desenvolvedora Front e Back
+                            End</strong><br>willianepereira44@gmail.com</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <div>
+                            <a href="https://github.com/Williane28">
+                                <img src="static/git.png" width="35" height="35" alt="Github de Williane">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="http://lattes.cnpq.br/2989033956285896">
+                                <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Github de Williane">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 container mt-4">
+                <div class="member-card">
+                    <img src="static/membros/camilo.jpeg" alt="Foto de Camilo" class="member-img">
+                    <h3>Camilo Lima</h3>
+                    <p>Sistemas de Informação (UNIRIO)<br><strong>Desenvolvedor Back
+                            End</strong><br>camilo.lima@edu.unirio.br</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <div>
+                            <a href="https://github.com/Camlui12">
+                                <img src="static/git.png" width="35" height="35" alt="Github de Camilo">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://lattes.cnpq.br/3723153399140095">
+                                <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Github de Camilo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 container mt-4">
+                <div class="member-card">
+                    <img src="static/membros/alexandre.jpeg" alt="Foto de Alexandre" class="member-img">
+                    <h3>Alexandre Vidal</h3>
+                    <p>Sistemas de Informação (UNIRIO)<br><strong>Desenvolvedor Back
+                            End</strong><br>camilo.lima@edu.unirio.br</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <div>
+                            <a href="https://github.com/alexandr10cl">
+                                <img src="static/git.png" width="35" height="35" alt="Github de Alexandre">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://lattes.cnpq.br/5208774415616563">
+                                <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Github de Alexandre">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="text-center">
+            <h3 class=" mt-5 text-white">Colaboradores</h3>
+            <h6 class="mb-5 text-center">Nosso time de colaboradores é formado por professores e pesquisadores de
+                diversas universidades brasileiras, bem como consultores, parceiros estratégicos e colaboradores
+                dedicados ao desenvolvimento contínuo de nosso software. A diversidade de habilidades e perspectivas
+                dessa equipe multidisciplinar fortalece nossa inovação e excelência no cenário acadêmico e tecnológico
+            </h6>
+        </div>
+        <div>
+            <div class="row text-center g-4">
+                <div class="col-md-4">
+                    <div class="member-card">
+                        <img src="static/membros/thiago.jpeg" alt="Foto de Thiago" class="member-img">
+                        <h3>Thiago de M. Parracho</h3>
+                        <p>Sistemas de Informação (UNIRIO)<br><strong>Pesquisador
+                                Colaborador</strong><br>thiago.parracho@edu.unirio.br</p>
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <div>
+                                <a href="https://github.com/ThiagoMouraP">
+                                    <img src="static/git.png" width="35" height="35" alt="Github de Thiago">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://lattes.cnpq.br/3251794528091833">
+                                    <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                        alt="Github de Thiago">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="member-card">
+                        <img src="static/membros/rodrigo_zacarias.png" alt="Foto de Rodrigo"
+                            alt="Foto de Lyanh Rodrigo Zacarias" class="member-img">
+                        <h3>Rodrigo O. Zacarias</h3>
+                        <p>Doutorando em Informática (UNIRIO)<br><strong>Pesquisador
+                                Colaborador</strong><br>rodrigo.zacarias@edu.unirio.br</p>
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <div>
+                                <a href="https://github.com/rodrigozacarias">
+                                    <img src="static/git.png" width="35" height="35" alt="Github de Rodrigo Zacarias">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="http://lattes.cnpq.br/4503161633600385">
+                                    <img class="mx-3 mt-1" src="static/logo-lattes.png" width="25" height="25"
+                                        alt="Github de Rodrigo Zacarias">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="member-card">
+                        <img src="static/membros/danilolims.PNG" alt="Foto de Danilo" alt="Foto de Rodrigo Zacarias"
+                            class="member-img">
+                        <h3>Danilo Teixeira</h3>
+                        <p>Mestre em Estudos Antrópicos na Amazônia (UFPA)<br><strong>Pesquisador
+                                Colaborador</strong><br>danilosistema13@gmail.com </p>
+                        <div>
+                            <a href="http://lattes.cnpq.br/4881833295260812">
+                                <img class="mx-3" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Github de Danilo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="text-center">
+            <h3 class=" mt-5 text-white">Coordenadores</h3>
+            <h6 class="mb-5 text-center">Os coordenadores deste projeto é formado por Professores Doutores da
+                Universidade Federal do Pará e de Universidade Estadual do Rio de Janeiro</h6>
+        </div>
+        <div class="container mb-5">
+            <div class="row justify-content-center g-4">
+                <div class="col-md-4">
+                    <div class="member-card text-center">
+                        <img src="static/membros/seruffo.png" alt="Foto de Seruffo" class="member-img">
+                        <h3>Dr. Marcos C. da R. Seruffo</h3>
+                        <p>Professor e Pesquisador da UFPA<br><strong>Coordenador do
+                                Projeto</strong><br>seruffo@itec.ufpa.br</p>
+                        <div>
+                            <a href="http://lattes.cnpq.br/3794198610723464">
+                                <img class="mx-3" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Lattes de Seruffo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="member-card text-center">
+                        <img src="static/membros/rodrigo.jpg" alt="Foto de Rodrigo Santos" class="member-img">
+                        <h3>Dr. Rodrigo P. dos Santos</h3>
+                        <p>Professor e Pesquisador da UNIRIO<br><strong>Coordenador do
+                                Projeto</strong><br>rps@uniriotec.br</p>
+                        <div>
+                            <a href="http://lattes.cnpq.br/8613736894676086">
+                                <img class="mx-3" src="static/logo-lattes.png" width="25" height="25"
+                                    alt="Lattes de Santos">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+{% endblock %}

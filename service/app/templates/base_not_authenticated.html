@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html data-bs-theme='dark' lang="pt">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>UX-Tracking: {{title}}</title>
+  <link rel="shortcut icon" type="imagex/png" href="{{ url_for('static', filename='icon.svg') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  {% block head %}{% endblock %}
+
+</head>
+
+<body>
+  <header style="position: fixed; top: 0; ">
+    <div class="text-bg-dark">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary" style="z-index: 1000;">
+        <div class="container-fluid" style="width:80%;">
+          <a class="navbar-brand d-fl align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
+            href="/">
+            <img class="bi me-2" src="{{ url_for('static', filename='logo.png') }}" alt="" width="auto" height="50">
+          </a>
+          <span class="fs-5 fw-bolder" style="color: white;">UX-Tracking</span>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mx-auto ms-5 mb-2 mb-lg-0 d-flex justify-content-end">
+              <li class="nav-item-active">
+                <a href="{{ url_for('index_bp.main_get') }}"
+                  class="nav-link link-press {{ 'text-primary' if title == 'Home' else ''}}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi me-1 bi-house" viewBox="0 0 16 16">
+                    <path
+                      d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                  </svg>
+                  Página inicial
+                </a>
+              </li>
+              <!--<div class="vr ms-3 me-3 "></div>-->
+              <li class="nav-item ms-1">
+                <a href="{{ url_for('infos_bp.publicacoes') }}"
+                  class="nav-link link-press {{ 'text-primary' if title == 'Publicacoes' else 'text-white'}}">
+                  Publicações
+                </a>
+              </li>
+              <li class="nav-item dropdown ms-1">
+                <a class="nav-link text-white link-press dropdown-toggle {{ 'text-primary' if title in ['Guia', 'Tutoriais e Exemplos'] else '' }}"
+                  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Documentação
+                </a>
+                <ul class="dropdown-menu ms-1">
+                  <li>
+                    <a href="{{ url_for('infos_bp.guia') }}"
+                      class=" dropdown-item nav-link {{ 'text-secondary' if title == 'Guia' else 'text-white'}}">
+                      Guia
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="dropdown-item nav-link {{ 'text-secondary' if title == 'lancamentos' else 'text-white'}}">
+                      Tutoriais e Exemplos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown  ms-1">
+                <a class="nav-link text-white link-press dropdown-toggle {{ 'text-primary' if title in ['Equipe', 'Lancamentos'] else '' }}"
+                  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Sobre
+                </a>
+                <ul class="dropdown-menu ms-1">
+                  <li><a href="{{ url_for('infos_bp.equipe') }}"
+                      class="dropdown-item nav-link {{ 'text-secondary' if title == 'Equipe' else 'text-white'}}">
+                      Equipe</a>
+                  </li>
+                  <li><a href="{{ url_for('infos_bp.lancamentos') }}"
+                      class="dropdown-item nav-link {{ 'text-secondary' if title == 'Lancamentos' else 'text-white'}}">
+                      Lançamentos</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item ms-1">
+                <a href="{{ url_for('auth_bp.login_get') }}"
+                  class="nav-link link-press {{ 'text-primary' if title == 'Login' else 'text-white'}}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi me-1 bi-person" viewBox="0 0 16 16">
+                    <path
+                      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                  </svg>
+                  Login
+                </a>
+              </li>
+              <li class="nav-item ms-1">
+                <a href="{{ url_for('auth_bp.register_get') }}"
+                  class="nav-link link-press {{ 'text-primary' if title == 'Registrar' else 'text-white'}}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi me-1 bi-person-add" viewBox="0 0 16 16">
+                    <path
+                      d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                    <path
+                      d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+                  </svg>
+                  Registrar
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+  </header>
+  <main class="d-flex flex-column flex-nowrap">
+
+    <!--
+
+        <div class="dropdown position-fixed bottom-0 end-0 mb-5 pb-5 me-3 bd-mode-toggle">
+          <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+                  id="bd-theme"
+                  type="button"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown"
+                  aria-label="Toggle theme (auto)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-circle-half" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+            </svg>
+            <span class="fs-6">Tema</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow my-2" aria-labelledby="bd-theme-text">
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false" id="lightMode">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-brightness-high" viewBox="0 0 16 16">
+                  <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+                </svg>
+                Claro
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false" id="darkMode">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-moon" viewBox="0 0 16 16">
+                  <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+                </svg>
+                Escuro
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true" id="autoMode">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-cloud-moon" viewBox="0 0 16 16">
+                  <path d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .625.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .509-.375A3.502 3.502 0 0 1 7 8zm4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5h-.027z"/>
+                  <path d="M11.286 1.778a.5.5 0 0 0-.565-.755 4.595 4.595 0 0 0-3.18 5.003 5.46 5.46 0 0 1 1.055.209A3.603 3.603 0 0 1 9.83 2.617a4.593 4.593 0 0 0 4.31 5.744 3.576 3.576 0 0 1-2.241.634c.162.317.295.652.394 1a4.59 4.59 0 0 0 3.624-2.04.5.5 0 0 0-.565-.755 3.593 3.593 0 0 1-4.065-5.422z"/>
+                </svg>
+                Auto
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+        -->
+
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top"
+      style="height: 8vh; background-color: rgba(0, 0, 0, .1);">
+      <div class="col-md-4 d-flex align-items-center">
+        <span class="ms-4 mb-0 mb-md-0 text-body-secondary">&copy; 2024 UX-Tracking: User eXperience Tracking</span>
+      </div>
+
+      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3 me-4"><a class="text-body-secondary" href="https://github.com/Colab-UNIRIO-UFPA">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-github"
+              viewBox="0 0 16 16">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+            </svg></a>
+        </li>
+      </ul>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+    integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+    crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='js/meuscript.js') }}"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+{% extends "base_not_authenticated.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lancamentos.css') }}">
+
+{% endblock %}
+
+{% block content %}
+<div class="minha-div mt-5">
+    <h2 class="text-white">Lançamentos</h2>
+    <h6 class="meu-paragrafo mt-5">A versão mais estável do Framework User Experience Tracking é
+        <strong>v0.8.7.5</strong></h6>
+    <h6 class="meu-paragrafo">Veja mais detalhes no nosso repositório do <a href="https://github.com/Colab-UNIRIO-UFPA"
+            class="">Github</a></h6>
+
+    <hr class="mt-5 mb-5">
+
+    <h3 class="mb-3 text-white">Atualizações Futuras</h3>
+    <p style="text-align: justify;">Na próxima atualização será implementando um sistema de reconhecimento de expressões
+        faciais, permitindo que você capture e analise a experiência do usuário em um nível totalmente novo.</p>
+
+    <h4 class="text-white">Principais recursos a serem lançados:</h4>
+    <ul style="text-align: justify;">
+        <li><strong>Captura de Expressão Facial em Tempo Real:</strong> Utilize a tecnologia de câmera para identificar
+            e registrar expressões faciais enquanto os usuários interagem com seu produto.</li>
+        <li><strong>Análise de Sentimento Aprofundada:</strong> Descubra como os usuários realmente se sentem sobre sua
+            interface e conteúdo, com feedback que vai além das palavras.</li>
+        <li><strong>Relatórios Intuitivos:</strong> Nossos dashboards atualizados proporcionarão insights visuais claros
+            sobre as reações dos usuários, ajudando a guiar suas decisões de design e desenvolvimento.</li>
+        <li><strong>Aprimorar a privacidade dos Usuário:</strong> Estamos comprometidos com a privacidade do usuário e
+            aderimos aos mais rígidos padrões de proteção de dados. O reconhecimento facial é realizado de maneira
+            ética, com consentimento explícito e sem armazenamento de imagens.</li>
+    </ul>
+
+    <p>Fique atento para mais atualizações e prepare-se para levar sua análise de UX ao próximo nível!</p>
+
+</div>
+{% endblock %}
