@@ -11,7 +11,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import sys
 from dotenv import load_dotenv
-import os
+from flask_restx import Api
 
 # Carregar variáveis do arquivo .env
 load_dotenv()
@@ -22,9 +22,7 @@ from app.utils.example_user import gen_example
 from app.utils.models import load_fer, load_bert
 from config import configure_app
 
-# load blueprints
-from app.webpage_routes.blueprints import webpage_bps
-from service.app.api_routes.blueprints import api_bps
+from service.app.api_routes.namespaces import api_namespaces
 
 
 def send_email(app, subject, body):
@@ -83,11 +81,20 @@ def create_app(environment="production"):
     # verifica se não há nenhum usuário no banco, então cria um usuário exemplo
     gen_example(app.config.get("MONGO_DB"), app.config.get("MONGO_FS"))
 
-    for bp in webpage_bps:
-        app.register_blueprint(bp, url_prefix="/")
+    """for bp in webpage_bps:
+        app.register_blueprint(bp, url_prefix="/")"""
 
-    for bp in api_bps:
-        app.register_blueprint(bp)
+    # Inicializar flask_restx Api e adicionar namespaces
+    api = Api(
+        title="UX-Tracking API",
+        version="1.0",
+        doc='/api/doc',
+        description="API da ferramenta UX-Tracking\n\nFerramenta de captura multimodal de suporte à avaliação da experiência do usuário.",
+    )
+
+    # Adicionar os namespaces
+    for ns in api_namespaces:
+        api.add_namespace(ns)
 
     # facial expression model
     app.config["FER_MODEL"] = load_fer()
@@ -97,4 +104,8 @@ def create_app(environment="production"):
 
     # autenticação google
     app.config["OAUTH"] = OAuth(app)
+
+    # Inicializar a API na aplicação Flask
+    api.init_app(app)
+
     return app

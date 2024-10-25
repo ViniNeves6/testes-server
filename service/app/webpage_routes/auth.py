@@ -7,15 +7,12 @@ from flask import (
     url_for,
 )
 
-from app.webpage_routes import login_required
-
 auth_bp = Blueprint(
     "auth_bp", "__name__", template_folder="templates", static_folder="static"
 )
 
 
 @auth_bp.get("/register")
-@login_required
 def register_get():
     return render_template("register.html", session=False, title="Registrar")
 
