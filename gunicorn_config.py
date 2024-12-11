@@ -10,10 +10,10 @@ workers = 2
 loglevel = "info"
 
 # Access log - records incoming HTTP requests
-accesslog = "/var/log/gunicorn/access.log"
+accesslog = "-"
 
 # Error log - records Gunicorn server errors
-errorlog = "/var/log/gunicorn/error.log"
+errorlog = "-"
 
 
 # Timeout
