@@ -42,7 +42,7 @@ services:
       - mongo
     env_file:
       - .env
-    mem_limit: 2048M
+    mem_limit: 3072M
     cpus: 2.0
     restart: always
     volumes:
