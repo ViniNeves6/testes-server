@@ -4,21 +4,20 @@ import multiprocessing
 bind = "0.0.0.0:8000"
 
 # Use the number of CPU cores available in the system
-# Adjust the number of workers to balance between performance and resource usage
-#workers = multiprocessing.cpu_count() * 2 + 1
-
 workers = 2
+
 # Log level
 loglevel = "info"
 
 # Access log - records incoming HTTP requests
-accesslog = "-"
+accesslog = "/var/log/gunicorn/access.log"
 
 # Error log - records Gunicorn server errors
-errorlog = "-"
+errorlog = "/var/log/gunicorn/error.log"
+
 
 # Timeout
-timeout = 120
+timeout = 60
 
 # Keep alive
 keepalive = 5
