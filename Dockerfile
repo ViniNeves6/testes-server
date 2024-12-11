@@ -20,6 +20,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 ENV PYTHONPATH=/app
-
-# Comando para rodar o servidor Gunicorn
-CMD ["gunicorn", "-c", "gunicorn_config.py", "app:create_app('prod')"]
