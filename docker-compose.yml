@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:alpine
     container_name: mongo-uxtracking
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
@@ -13,9 +13,11 @@ services:
     mem_limit: 512M
     cpus: 1.0
     restart: always
+    volumes:
+      - mongo-data:/data/db
 
   mongo-express:
-    image: mongo-express:latest
+    image: mongo-express:alpine
     container_name: mongo-express-uxtracking
     depends_on:
       - mongo
@@ -40,12 +42,15 @@ services:
       - mongo
     env_file:
       - .env
-    mem_limit: 3072M
+    mem_limit: 2048M
     cpus: 2.0
     restart: always
+    volumes:
+      - ./gunicorn_config.py:/app/gunicorn_config.py
+    command: ["gunicorn", "--config", "/app/gunicorn_config.py", "app:create_app('prod')"]
 
   nginx:
-    image: nginx:latest
+    image: nginx:alpine
     container_name: nginx-uxtracking
     ports:
       - "80:80"
@@ -56,3 +61,6 @@ services:
     mem_limit: 512M
     cpus: 0.5
     restart: always
+    
+volumes:
+  mongo-data:
